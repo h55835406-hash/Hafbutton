@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro OS v3.0</title>
+    <style>
+        @font-face {
+            font-family: 'MS Sans Serif';
+            src: local('MS Sans Serif'), local('Arial');
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+            font-size: 12px;
+            image-rendering: pixelated;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        #desktop {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 40px);
+            padding: 20px;
+        }
+        .cyber-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        #taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #222222;
+            border-top: 2px solid #555555;
+            display: flex;
+            align-items: center;
+            padding: 2px 10px;
+            z-index: 9999;
+        }
+        .start-btn {
+            background-color: #333333;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 2px 12px;
+            border: 2px solid;
+            border-color: #555555 #111111 #111111 #555555;
+            cursor: pointer;
+        }
+        .win95-window {
+            position: absolute;
+            background-color: #1c1c1c;
+            border: 2px solid;
+            border-color: #444444 #111111 #111111 #444444;
+            padding: 3px;
+            z-index: 100;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .win95-header {
+            background: linear-gradient(90deg, #111111, #444444);
+            color: #00ffff;
+            font-weight: bold;
+            padding: 4px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win95-close {
+            background-color: #2a2a2a;
+            color: #ff3333;
+            border: 2px solid;
+            border-color: #555555 #111111 #111111 #555555;
+            width: 18px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .win95-content {
+            padding: 24px;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .win95-btn {
+            background-color: #222222;
+            border: 2px solid;
+            border-color: #444444 #0a0a0a #0a0a0a #444444;
+            color: #ffffff;
+            padding: 6px 20px;
+            min-width: 80px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .win95-btn.disabled {
+            color: #555555;
+            cursor: default;
+            border-color: #333333 #111111 #111111 #333333;
+        }
+        .evading-btn {
+            position: fixed;
+            z-index: 1000;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #222222, #111111);
+            color: #00ffff;
+            border-color: #00ffff #005555 #005555 #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        .clone-btn {
+            position: fixed;
+            opacity: 0.85;
+            z-index: 990;
+            border-style: dashed;
+            color: #ff00ff;
+            border-color: #ff00ff #800080 #800080 #ff00ff;
+        }
+        .speech-bubble {
+            position: fixed;
+            background: #111111;
+            border: 1px solid #00ffff;
+            border-radius: 4px;
+            padding: 6px 12px;
+            color: #00ffff;
+            font-size: 11px;
+            z-index: 1100;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        #bsod {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000aa;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            padding: 50px;
+            display: none;
+            z-index: 10000;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #hud-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid #333333;
+            padding: 12px;
+            color: #888888;
+            font-family: monospace;
+            z-index: 50;
+        }
+        #hud-panel b { color: #00ffff; }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-grid"></div>
+
+    <div id="desktop">
+        <div id="mainWindow" class="win95-window" style="width: 380px; left: calc(50% - 190px); top: calc(50% - 110px);">
+            <div class="win95-header">
+                <div>💾 Sec_Check.exe</div>
+                <div class="win95-close" onclick="triggerTroll('close')">×</div>
+            </div>
+            <div class="win95-content">
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div style="min-width: 36px; height: 36px; background: #00ffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white;">
+                        <span style="color: black; font-weight: bold; font-size: 24px;">?</span>
+                    </div>
+                    <div>
+                        <p style="margin: 0 0 5px 0; font-weight: bold; color: #00ffff;">Анализ системы</p>
+                        <p style="margin: 0; color: #cccccc;">Уровень гениальности зашкаливает. Вы Даня?</p>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; height: 40px;">
+                    <button class="win95-btn disabled" style="width: 80px;" onclick="triggerTroll('no')">Нет</button>
+                    <div style="width: 100px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <button id="mainYesBtn" class="win95-btn evading-btn" style="width: 100px;">Да ⚡</button>
+    </div>
+
+    <div id="hud-panel">
+        <div>РЕЖИМ ПОБЕГА: <b id="hud-mode">01 / REPEL</b></div>
+        <div>КООРДИНАТЫ: <span id="hud-coords" style="color: #fff;">X: 0 Y: 0</span></div>
+        <div>АКТИВНЫХ КЛОНОВ: <span id="hud-clones" style="color: #ff00ff;">0</span></div>
+    </div>
+
+    <div id="taskbar">
+        <div class="start-btn" onclick="triggerTroll('start')">⚡ Пуск</div>
+        <div style="margin-left: auto; color: #00ffff; font-weight: bold;" id="clock">12:00</div>
+    </div>
+
+    <div id="bsod">
+        <center><h1 style="background:#aaa;color:#00aa;padding:0 10px;">WINDOWS ERROR</h1></center>
+        <br><br>Критический сбой квантового ядра кнопки Да.<br>Нажмите в любое место экрана для перезагрузки системы.
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('mainYesBtn');
+        const mainWindow = document.getElementById('mainWindow');
+        const clock = document.getElementById('clock');
+        const bsod = document.getElementById('bsod');
+        const hudMode = document.getElementById('hud-mode');
+        const hudCoords = document.getElementById('hud-coords');
+        const hudClones = document.getElementById('hud-clones');
+
+        let btnX = 0, btnY = 0, targetX = 0, targetY = 0;
+        let scale = 1, targetScale = 1, opacity = 1, targetOpacity = 1, angle = 0, targetAngle = 0;
+        let mouseX = 0, mouseY = 0, lastMouseX = 0, lastMouseY = 0, mouseSpeed = 0;
+        let clones = [];
+        let bubble = null, bubbleTimer = null;
+
+        const escapeModes = [
+            'REPEL', 'TELEPORT', 'SHRINK', 'PANIC', 'MIRROR', 'CAMOUFLAGE', 'SHIELD', 'PORTAL', 'ORBIT', 'SLIDE',
+            'CLONE_SPAWN', 'GRAVITY', 'SINE_WAVE', 'JUMPY', 'GHOST', 'BOUNCE_WALLS', 'ACCELERATE', 'DRUNK_FLY', 'UPSIDE_DOWN', 'GLITCH',
+            'CORNER_HUG', 'CIRCLE_SHIELD', 'MATRIX_FALL', 'QUICK_DASH', 'DIAGONAL', 'ZIGZAG', 'WOBBLE', 'MAGNET_REPULSE', 'SIZE_MORPH', 'TELEPORT_DODGE'
+        ];
+        let currentMode = 'REPEL';
+
+        const phrases = ["Даня, мимо!", "Я тут ⚡", "Упс!", "Не поймаешь!", "Лови клона!", "Защита!", "Неа 😛", "Почти!"];
+
+        function init() {
+            const winRect = mainWindow.getBoundingClientRect();
+            btnX = winRect.left + 245; btnY = winRect.top + 130;
+            targetX = btnX; targetY = btnY;
+            yesBtn.style.left = btnX + 'px'; yesBtn.style.top = btnY + 'px';
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            clock.innerText = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+        }, 1000);
+
+        setInterval(() => {
+            const idx = Math.floor(Math.random() * escapeModes.length);
+            currentMode = escapeModes[idx];
+            hudMode.innerText = `${(idx + 1).toString().padStart(2,'0')} / ${currentMode}`;
+            if(Math.random() < 0.4) showBubble(phrases[Math.floor(Math.random() * phrases.length)], btnX, btnY);
+        }, 3500);
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            mouseSpeed = Math.sqrt(Math.pow(mouseX - lastMouseX, 2) + Math.pow(mouseY - lastMouseY, 2));
+            lastMouseX = mouseX; lastMouseY = mouseY;
+            hudCoords.innerText = `X: ${Math.round(btnX)} Y: ${Math.round(btnY)}`;
+        });
+
+        function showBubble(text, x, y) {
+            if (bubble) bubble.remove();
+            clearTimeout(bubbleTimer);
+            bubble = document.createElement('div');
+            bubble.className = 'speech-bubble';
+            bubble.innerText = text;
+            bubble.style.left = x + 'px'; bubble.style.top = (y - 35) + 'px';
+            document.body.appendChild(bubble);
+            bubbleTimer = setTimeout(() => { if(bubble) bubble.remove(); }, 1000);
+        }
+
+        function spawnClone() {
+            if (clones.length >= 5) return;
+            const clone = document.createElement('button');
+            clone.className = 'win95-btn evading-btn clone-btn';
+            clone.innerHTML = 'Да 🔥';
+            clone.style.width = '100px';
+            const cX = Math.max(20, Math.min(window.innerWidth - 120, btnX + (Math.random() - 0.5) * 200));
+            const cY = Math.max(20, Math.min(window.innerHeight - 60, btnY + (Math.random() - 0.5) * 200));
+            clone.style.left = cX + 'px'; clone.style.top = cY + 'px';
+            document.body.appendChild(clone);
+
+            const cData = { el: clone, x: cX, y: cY, tx: cX, ty: cY };
+            clones.push(cData);
+            hudClones.innerText = clones.length;
+
+            setTimeout(() => {
+                clone.remove();
+                clones = clones.filter(c => c !== cData);
+                hudClones.innerText = clones.length;
+            }, 5000);
+
+            clone.addEventListener('mouseover', () => {
+                cData.tx = Math.random() * (window.innerWidth - 120);
+                cData.ty = Math.random() * (window.innerHeight - 60);
+            });
+        }
+
+        function update() {
+            const r = yesBtn.getBoundingClientRect();
+            const bCX = btnX + r.width / 2, bCY = btnY + r.height / 2;
+            const dist = Math.sqrt(Math.pow(mouseX - bCX, 2) + Math.pow(mouseY - bCY, 2));
+            const fear = 130 + Math.min(mouseSpeed * 1.2, 100);
+
+            if (dist < fear) {
+                const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                switch (currentMode) {
+                    case 'REPEL': case 'BOUNCE_WALLS': case 'ACCELERATE': case 'MAGNET_REPULSE':
+                        const f = (fear - dist) * 0.4 + mouseSpeed * 0.3;
+                        targetX += Math.cos(a) * f; targetY += Math.sin(a) * f;
+                        break;
+                    case 'TELEPORT': case 'TELEPORT_DODGE': case 'PORTAL':
+                        if (dist < 60) {
+                            targetX = Math.random() * (window.innerWidth - r.width - 40) + 20;
+                            targetY = Math.random() * (window.innerHeight - r.height - 40) + 20;
+                            btnX = targetX; btnY = targetY;
+                        }
+                        break;
+                    case 'SHRINK': case 'SIZE_MORPH':
+                        targetScale = Math.max(0.2, dist / fear);
+                        targetX += Math.cos(a) * 6; targetY += Math.sin(a) * 6;
+                        break;
+                    case 'PANIC': case 'WOBBLE': case 'GLITCH':
+                        targetX += (Math.random() - 0.5) * 40; targetY += (Math.random() - 0.5) * 40;
+                        if(Math.random() < 0.1) spawnClone();
+                        break;
+                    case 'MIRROR':
+                        targetX = window.innerWidth - mouseX - r.width/2;
+                        targetY = window.innerHeight - mouseY - r.height/2;
+                        break;
+                    case 'CAMOUFLAGE': case 'GHOST':
+                        targetOpacity = Math.max(0.1, dist / fear);
+                        targetX += Math.cos(a) * 5; targetY += Math.sin(a) * 5;
+                        break;
+                    case 'CLONE_SPAWN':
+                        spawnClone(); currentMode = 'TELEPORT';
+                        break;
+                    case 'SINE_WAVE': case 'ZIGZAG':
+                        targetX += Math.cos(a) * 10; targetY += Math.sin(Date.now() * 0.01) * 15;
+                        break;
+                    case 'GRAVITY': case 'MATRIX_FALL':
+                        targetY += 15; if (targetY > window.innerHeight - 80) targetY = 40;
+                        break;
+                    case 'UPSIDE_DOWN':
+                        targetAngle = 180; targetX += Math.cos(a) * 10; targetY += Math.sin(a) * 10;
+                        break;
+                    default:
+                        targetX += Math.cos(a) * 12; targetY += Math.sin(a) * 12;
+                }
+            } else {
+                targetScale = 1; targetOpacity = 1; targetAngle = 0;
+            }
+
+            const p = 25;
+            if (targetX < p) targetX = p;
+            if (targetX > window.innerWidth - r.width - p) targetX = window.innerWidth - r.width - p;
+            if (targetY < p) targetY = p;
+            if (targetY > window.innerHeight - r.height - p) targetY = window.innerHeight - r.height - p;
+
+            btnX += (targetX - btnX) * 0.15; btnY += (targetY - btnY) * 0.15;
+            scale += (targetScale - scale) * 0.2; opacity += (targetOpacity - opacity) * 0.2; angle += (targetAngle - angle) * 0.2;
+
+            yesBtn.style.left = btnX + 'px'; yesBtn.style.top = btnY + 'px';
+            yesBtn.style.transform = `scale(${scale}) rotate(${angle}deg)`; yesBtn.style.opacity = opacity;
+
+            clones.forEach(c => {
+                const cr = c.el.getBoundingClientRect();
+                const cd = Math.sqrt(Math.pow(mouseX - (c.x + cr.width/2), 2) + Math.pow(mouseY - (c.y + cr.height/2), 2));
+                if (cd < fear) {
+                    const ca = Math.atan2(c.y + cr.height/2 - mouseY, c.x + cr.width/2 - mouseX);
+                    c.tx += Math.cos(ca) * 12; c.ty += Math.sin(ca) * 12;
+                }
+                if (c.tx < p) c.tx = p; if (c.tx > window.innerWidth - cr.width - p) c.tx = window.innerWidth - cr.width - p;
+                if (c.ty < p) c.ty = p; if (c.ty > window.innerHeight - cr.height - p) c.ty = window.innerHeight - r.height - p;
+                c.x += (c.tx - c.x) * 0.15; c.y += (c.ty - c.y) * 0.15;
+                c.el.style.left = c.x + 'px'; c.el.style.top = c.y + 'px';
+            });
+
+            requestAnimationFrame(update);
+        }
+
+        yesBtn.addEventListener('click', (e) => {
+            if (Math.random() < 0.96) {
+                e.preventDefault();
+                targetX = Math.random() * (window.innerWidth - 120); targetY = Math.random() * (window.innerHeight - 60);
+                btnX = targetX; btnY = targetY;
+                showBubble("Мимо!", btnX, btnY);
+                return;
+            }
+            alert("Ого, ты поймал её! Верификация пройдена 🎉");
+            window.location.reload();
+        });
+
+        function triggerTroll(t) {
+            if (t === 'close') showBubble("Кнопка закрытия заблокирована!", btnX, btnY);
+            if (t === 'no') showBubble("Опция 'Нет' недоступна!", btnX, btnY);
+            if (t === 'start') bsod.style.display = 'block';
+        }
+
+        document.addEventListener('click', () => { if(bsod.style.display === 'block') { bsod.style.display = 'none'; init(); } });
+
+        init();
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>
+
