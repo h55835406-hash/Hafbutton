@@ -1,0 +1,858 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danya Detection System v3.0 - Ultimate Edition</title>
+    <style>
+        @font-face {
+            font-family: 'MS Sans Serif';
+            src: local('MS Sans Serif'), local('Arial');
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+            font-size: 12px;
+            image-rendering: pixelated;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000; /* Абсолютно черный фон */
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Рабочий стол */
+        #desktop {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 40px);
+            padding: 20px;
+        }
+
+        /* Системная сетка на черном фоне */
+        .cyber-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Нижняя панель задач */
+        #taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #222222; /* Темно-серая ретро панель */
+            border-top: 2px solid #555555;
+            box-shadow: inset 0 1px 0 #333333;
+            display: flex;
+            align-items: center;
+            padding: 2px 10px;
+            z-index: 9999;
+        }
+
+        .start-btn {
+            background-color: #333333;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 2px 12px;
+            border: 2px solid;
+            border-color: #555555 #111111 #111111 #555555;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .start-btn:active {
+            border-color: #111111 #555555 #555555 #111111;
+            padding: 3px 11px 1px 13px;
+        }
+
+        /* Ретро-окна в темном исполнении */
+        .win95-window {
+            position: absolute;
+            background-color: #1c1c1c;
+            border: 2px solid;
+            border-color: #444444 #111111 #111111 #444444;
+            box-shadow: inset 1px 1px 0px #333333, inset -1px -1px 0px #050505;
+            padding: 3px;
+            z-index: 100;
+            color: #ffffff;
+        }
+
+        .win95-header {
+            background: linear-gradient(90deg, #111111, #444444);
+            color: #00ffff; /* Неоново-бирюзовый ретро заголовок */
+            font-weight: bold;
+            padding: 4px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222222;
+        }
+
+        .win95-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .win95-close {
+            background-color: #2a2a2a;
+            color: #ff3333;
+            border: 2px solid;
+            border-color: #555555 #111111 #111111 #555555;
+            width: 18px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            padding-bottom: 1px;
+        }
+
+        .win95-close:active {
+            border-color: #111111 #555555 #555555 #111111;
+        }
+
+        .win95-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #1a1a1a;
+        }
+
+        /* Ретро кнопки */
+        .win95-btn {
+            background-color: #222222;
+            border: 2px solid;
+            border-color: #444444 #0a0a0a #0a0a0a #444444;
+            box-shadow: inset 1px 1px 0px #333333;
+            color: #ffffff;
+            padding: 6px 20px;
+            min-width: 80px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+        }
+
+        .win95-btn:active {
+            border-color: #0a0a0a #444444 #444444 #0a0a0a;
+            box-shadow: none;
+        }
+
+        .win95-btn.disabled {
+            color: #555555;
+            text-shadow: 1px 1px 0px #000000;
+            cursor: default;
+            border-color: #333333 #111111 #111111 #333333;
+        }
+
+        /* Убегающие кнопки */
+        .evading-btn {
+            position: fixed;
+            z-index: 1000;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #222222, #111111);
+            color: #00ffff;
+            border-color: #00ffff #005555 #005555 #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Клоны кнопок */
+        .clone-btn {
+            position: fixed;
+            opacity: 0.85;
+            z-index: 990;
+            border-style: dashed;
+            color: #ff00ff;
+            border-color: #ff00ff #800080 #800080 #ff00ff;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+        }
+
+        /* Облачко реплик */
+        .speech-bubble {
+            position: fixed;
+            background: #111111;
+            border: 1px solid #00ffff;
+            border-radius: 4px;
+            padding: 6px 12px;
+            color: #00ffff;
+            font-size: 11px;
+            z-index: 1100;
+            pointer-events: none;
+            box-shadow: 0px 0px 10px rgba(0,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 20px;
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: #111111 transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Синий экран смерти */
+        #bsod {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000aa;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            padding: 50px;
+            display: none;
+            z-index: 10000;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #bsod h1 {
+            background-color: #aaaaaa;
+            color: #0000aa;
+            display: inline-block;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+        /* HUD инфопанель сбоку */
+        #hud-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid #333333;
+            padding: 15px;
+            color: #888888;
+            font-family: monospace;
+            z-index: 50;
+            max-width: 280px;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        #hud-panel b {
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-grid"></div>
+
+    <div id="desktop">
+        <!-- Главное ретро-окно -->
+        <div id="mainWindow" class="win95-window" style="width: 380px; left: calc(50% - 190px); top: calc(50% - 110px);">
+            <div class="win95-header">
+                <div class="win95-title">
+                    <span>💾</span> Sec_Danya_Check.exe
+                </div>
+                <div class="win95-close" onclick="triggerTroll('close')">×</div>
+            </div>
+            <div class="win95-content">
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <!-- Ретро-иконка вопроса -->
+                    <div style="min-width: 36px; height: 36px; background: #00ffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 0 10px #00ffff;">
+                        <span style="color: black; font-weight: bold; font-size: 24px;">?</span>
+                    </div>
+                    <div>
+                        <p style="margin: 0 0 5px 0; font-weight: bold; font-size: 13px; color: #00ffff;">Анализ Личности</p>
+                        <p style="margin: 0; line-height: 1.4; color: #cccccc;">Уровень гениальности зашкаливает. Ответьте честно, вы Даня?</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; height: 40px; position: relative;">
+                    <!-- Заглушка Нет -->
+                    <button class="win95-btn disabled" style="width: 80px;" onclick="triggerTroll('no')">Нет</button>
+                    <!-- Место под Да -->
+                    <div style="width: 100px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подвижная кнопка "Да" -->
+        <button id="mainYesBtn" class="win95-btn evading-btn" style="width: 100px;">
+            Да ⚡
+        </button>
+    </div>
+
+    <!-- HUD Панель -->
+    <div id="hud-panel">
+        <div style="border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 8px; font-weight: bold; color: #ffffff;">MIND_EVASION_OS v3.0</div>
+        <div>РЕЖИМ ПОБЕГА: <b id="hud-mode">01 / REPEL</b></div>
+        <div>УГРОЗА КЛИКА: <b id="hud-threat" style="color: #ff3333;">НИЗКАЯ</b></div>
+        <div>КООРДИНАТЫ: <span id="hud-coords" style="color: #ffffff;">X: 0 Y: 0</span></div>
+        <div>АКТИВНЫХ КЛОНОВ: <span id="hud-clones" style="color: #ff00ff;">0</span></div>
+    </div>
+
+    <!-- Панель задач -->
+    <div id="taskbar">
+        <div class="start-btn" onclick="triggerTroll('start')">
+            <span style="font-size:14px;">⚡</span> Пуск
+        </div>
+        <div style="margin-left: auto; background: #1a1a1a; border: 2px solid; border-color: #111111 #555555 #555555 #111111; padding: 3px 10px; font-weight: bold; color: #00ffff;" id="clock">
+            12:00
+        </div>
+    </div>
+
+    <!-- Синий экран -->
+    <div id="bsod">
+        <center><h1>WINDOWS DANYA ERROR</h1></center>
+        <br><br>
+        Произошла критическая ошибка перегрузки уворотливых систем.<br>
+        Вызов Пуска привел к аварийному сбросу квантового ядра кнопки.<br>
+        <br>
+        * Кнопка Да задействовала секретные резервы ИИ.<br>
+        * Будьте осторожны, частота клонирования увеличилась.<br>
+        <br>
+        Нажмите ЛКМ для возврата в систему <span class="blink">_</span>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('mainYesBtn');
+        const mainWindow = document.getElementById('mainWindow');
+        const desktop = document.getElementById('desktop');
+        const clock = document.getElementById('clock');
+        const bsod = document.getElementById('bsod');
+
+        // Элементы HUD
+        const hudMode = document.getElementById('hud-mode');
+        const hudThreat = document.getElementById('hud-threat');
+        const hudCoords = document.getElementById('hud-coords');
+        const hudClones = document.getElementById('hud-clones');
+
+        // Координаты
+        let btnX = 0, btnY = 0;
+        let targetX = 0, targetY = 0;
+        let scale = 1, targetScale = 1;
+        let opacity = 1, targetOpacity = 1;
+        let angleDeg = 0, targetAngleDeg = 0;
+
+        let mouseX = 0, mouseY = 0;
+        let lastMouseX = 0, lastMouseY = 0;
+        let mouseSpeed = 0;
+
+        // Клоны
+        let clones = [];
+
+        // Облачко фраз
+        let bubble = null;
+        let bubbleTimer = null;
+
+        // База из 30 вариантов уклонения (названия режимов)
+        const escapeModes = [
+            'REPEL', 'TELEPORT', 'SHRINK', 'PANIC', 'MIRROR', 
+            'CAMOUFLAGE', 'SHIELD', 'PORTAL', 'ORBIT', 'SLIDE',
+            'CLONE_SPAWN', 'GRAVITY', 'SINE_WAVE', 'JUMPY', 'GHOST',
+            'BOUNCE_WALLS', 'ACCELERATE', 'DRUNK_FLY', 'UPSIDE_DOWN', 'GLITCH',
+            'CORNER_HUG', 'CIRCLE_SHIELD', 'MATRIX_FALL', 'QUICK_DASH', 'DIAGONAL',
+            'ZIGZAG', 'WOBBLE', 'MAGNET_REPULSE', 'SIZE_MORPH', 'TELEPORT_DODGE'
+        ];
+        
+        let currentModeIndex = 0;
+        let currentModeName = 'REPEL';
+
+        const phrases = [
+            "Даня, мимо!", "Я тут ⚡", "Упс!", "Не поймаешь!", 
+            "Квантовый скачок!", "Лови клона!", "Защитное поле!", 
+            "Вектор изменен!", "Попробуй еще!", "Ошибка наведения!"
+        ];
+
+        // Первичное позиционирование
+        function initButtonPos() {
+            const winRect = mainWindow.getBoundingClientRect();
+            btnX = winRect.left + 245;
+            btnY = winRect.top + 130;
+            targetX = btnX;
+            targetY = btnY;
+            yesBtn.style.left = btnX + 'px';
+            yesBtn.style.top = btnY + 'px';
+        }
+
+        // Обновление часов
+        function updateClock() {
+            const now = new Date();
+            clock.innerText = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Смена алгоритма побега (вызывается случайно или по таймеру)
+        function changeEscapeMode() {
+            currentModeIndex = Math.floor(Math.random() * escapeModes.length);
+            currentModeName = escapeModes[currentModeIndex];
+            hudMode.innerText = `${(currentModeIndex + 1).toString().padStart(2, '0')} / ${currentModeName}`;
+            
+            if (Math.random() < 0.5) {
+                showBubble(phrases[Math.floor(Math.random() * phrases.length)], btnX, btnY);
+            }
+            playBeep(600 + (currentModeIndex * 20), 'sine', 0.08);
+        }
+        setInterval(changeEscapeMode, 4000);
+
+        // Отслеживание мыши
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            mouseSpeed = Math.sqrt(Math.pow(mouseX - lastMouseX, 2) + Math.pow(mouseY - lastMouseY, 2));
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+        });
+
+        // Создание реплики
+        function showBubble(text, x, y) {
+            if (bubble) bubble.remove();
+            clearTimeout(bubbleTimer);
+
+            bubble = document.createElement('div');
+            bubble.className = 'speech-bubble';
+            bubble.innerText = text;
+            bubble.style.left = (x - 20) + 'px';
+            bubble.style.top = (y - 35) + 'px';
+            document.body.appendChild(bubble);
+
+            bubbleTimer = setTimeout(() => {
+                if (bubble) bubble.remove();
+            }, 1200);
+        }
+
+        // Звуки
+        let audioCtx = null;
+        function playBeep(freq, type, duration) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        // Создание клона (держится 5 секунд)
+        function spawnClone() {
+            if (clones.length >= 6) return;
+
+            const clone = document.createElement('button');
+            clone.className = 'win95-btn evading-btn clone-btn';
+            clone.innerHTML = 'Да 🔥';
+            clone.style.width = '100px';
+            
+            const cX = Math.max(30, Math.min(window.innerWidth - 130, btnX + (Math.random() - 0.5) * 150));
+            const cY = Math.max(30, Math.min(window.innerHeight - 70, btnY + (Math.random() - 0.5) * 150));
+            
+            clone.style.left = cX + 'px';
+            clone.style.top = cY + 'px';
+            document.body.appendChild(clone);
+
+            const cloneData = {
+                el: clone,
+                x: cX, y: cY,
+                tx: cX, ty: cY,
+                birth: Date.now()
+            };
+
+            clones.push(cloneData);
+            hudClones.innerText = clones.length;
+            playBeep(450, 'triangle', 0.05);
+
+            setTimeout(() => {
+                clone.style.transform = 'scale(0)';
+                clone.style.transition = 'transform 0.15s';
+                setTimeout(() => {
+                    clone.remove();
+                    clones = clones.filter(c => c !== cloneData);
+                    hudClones.innerText = clones.length;
+                }, 150);
+            }, 5000);
+
+            clone.addEventListener('mouseover', () => {
+                // Клоны тоже резво убегают!
+                cloneData.tx = Math.random() * (window.innerWidth - 130);
+                cloneData.ty = Math.random() * (window.innerHeight - 70);
+            });
+        }
+
+        // Движок уклонения (30 алгоритмов)
+        function updatePhysics() {
+            const btnRect = yesBtn.getBoundingClientRect();
+            const bCX = btnX + btnRect.width / 2;
+            const bCY = btnY + btnRect.height / 2;
+
+            const dist = Math.sqrt(Math.pow(mouseX - bCX, 2) + Math.pow(mouseY - bCY, 2));
+            const fearRadius = 140 + Math.min(mouseSpeed * 1.2, 120);
+
+            if (dist < 100) {
+                hudThreat.innerText = "КРИТИЧЕСКАЯ";
+                hudThreat.style.color = "#ff3333";
+            } else if (dist < fearRadius) {
+                hudThreat.innerText = "ВЫСОКАЯ";
+                hudThreat.style.color = "#ffaa00";
+            } else {
+                hudThreat.innerText = "НИЗКАЯ";
+                hudThreat.style.color = "#00ff00";
+            }
+
+            if (dist < fearRadius) {
+                // Активация 30 режимов побега
+                switch (currentModeName) {
+                    case 'REPEL': { // 1. Стандартный отскок
+                        const f = (fearRadius - dist) * 0.4 + (mouseSpeed * 0.3);
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * f;
+                        targetY += Math.sin(a) * f;
+                        break;
+                    }
+                    case 'TELEPORT': { // 2. Квантовый прыжок
+                        if (dist < 60) {
+                            targetX = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
+                            targetY = Math.random() * (window.innerHeight - btnRect.height - 40) + 20;
+                            btnX = targetX; btnY = targetY;
+                            playBeep(900, 'square', 0.1);
+                        }
+                        break;
+                    }
+                    case 'SHRINK': { // 3. Уменьшение
+                        targetScale = Math.max(0.15, dist / fearRadius);
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 5;
+                        targetY += Math.sin(a) * 5;
+                        break;
+                    }
+                    case 'PANIC': { // 4. Паника
+                        targetX += (Math.random() - 0.5) * 45;
+                        targetY += (Math.random() - 0.5) * 45;
+                        targetAngleDeg = (Math.random() - 0.5) * 40;
+                        break;
+                    }
+                    case 'MIRROR': { // 5. Зеркало
+                        const sX = window.innerWidth / 2;
+                        const sY = window.innerHeight / 2;
+                        targetX = sX - (mouseX - sX) - btnRect.width / 2;
+                        targetY = sY - (mouseY - sY) - btnRect.height / 2;
+                        break;
+                    }
+                    case 'CAMOUFLAGE': { // 6. Исчезновение
+                        targetOpacity = Math.max(0.05, dist / fearRadius);
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 4;
+                        targetY += Math.sin(a) * 4;
+                        break;
+                    }
+                    case 'SHIELD': { // 7. Защитный силовой толчок
+                        const f = Math.max((fearRadius - dist) * 0.7, 8);
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * f;
+                        targetY += Math.sin(a) * f;
+                        break;
+                    }
+                    case 'PORTAL': { // 8. Портальный прыжок на противоположный край
+                        if (dist < 65) {
+                            targetX = window.innerWidth - btnX - btnRect.width;
+                            targetY = window.innerHeight - btnY - btnRect.height;
+                            btnX = targetX; btnY = targetY;
+                            playBeep(1200, 'sine', 0.15);
+                        }
+                        break;
+                    }
+                    case 'ORBIT': { // 9. Вращение на орбите
+                        const time = Date.now() * 0.006;
+                        targetX = mouseX + Math.cos(time) * 110 - btnRect.width / 2;
+                        targetY = mouseY + Math.sin(time) * 110 - btnRect.height / 2;
+                        break;
+                    }
+                    case 'SLIDE': { // 10. Скольжение по краям
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 15;
+                        targetY += Math.sin(a) * 15;
+                        break;
+                    }
+                    case 'CLONE_SPAWN': { // 11. Почкование клона при опасности
+                        if (dist < 80) {
+                            spawnClone();
+                            targetX = Math.random() * (window.innerWidth - btnRect.width);
+                            targetY = Math.random() * (window.innerHeight - btnRect.height);
+                            btnX = targetX; btnY = targetY;
+                        }
+                        break;
+                    }
+                    case 'GRAVITY': { // 12. Гравитационное падение от мыши
+                        targetY += 15;
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 8;
+                        break;
+                    }
+                    case 'SINE_WAVE': { // 13. Синусоида
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 10;
+                        targetY += Math.sin(Date.now() * 0.01) * 15;
+                        break;
+                    }
+                    case 'JUMPY': { // 14. Резкие прыжки на фиксированные расстояния
+                        if (dist < 75) {
+                            const angle = Math.random() * Math.PI * 2;
+                            targetX += Math.cos(angle) * 160;
+                            targetY += Math.sin(angle) * 160;
+                            playBeep(700, 'triangle', 0.05);
+                        }
+                        break;
+                    }
+                    case 'GHOST': { // 15. Прозрачный призрак
+                        targetOpacity = 0.2;
+                        targetX += (Math.random() - 0.5) * 10;
+                        targetY += (Math.random() - 0.5) * 10;
+                        break;
+                    }
+                    case 'BOUNCE_WALLS': { // 16. Рикошет
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 18;
+                        targetY += Math.sin(a) * 18;
+                        break;
+                    }
+                    case 'ACCELERATE': { // 17. Разгон
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * (20 + mouseSpeed * 0.5);
+                        targetY += Math.sin(a) * (20 + mouseSpeed * 0.5);
+                        break;
+                    }
+                    case 'DRUNK_FLY': { // 18. Пьяный полет
+                        const time = Date.now() * 0.01;
+                        targetX += Math.sin(time) * 12 - (distX / dist) * 8;
+                        targetY += Math.cos(time) * 12 - (distY / dist) * 8;
+                        break;
+                    }
+                    case 'UPSIDE_DOWN': { // 19. Перевернутая кнопка
+                        targetAngleDeg = 180;
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 10;
+                        targetY += Math.sin(a) * 10;
+                        break;
+                    }
+                    case 'GLITCH': { // 20. Глитч-прыжки со сдвигом
+                        targetX += (Math.random() - 0.5) * 30;
+                        targetY += (Math.random() - 0.5) * 30;
+                        targetOpacity = Math.random() > 0.5 ? 1 : 0.3;
+                        break;
+                    }
+                    case 'CORNER_HUG': { // 21. Стремление прижаться к ближайшему углу экрана
+                        const corners = [
+                            {x: 30, y: 30},
+                            {x: window.innerWidth - btnRect.width - 30, y: 30},
+                            {x: 30, y: window.innerHeight - btnRect.height - 30},
+                            {x: window.innerWidth - btnRect.width - 30, y: window.innerHeight - btnRect.height - 30}
+                        ];
+                        // Выбираем самый дальний от мыши угол
+                        let bestCorner = corners[0];
+                        let maxDist = 0;
+                        corners.forEach(c => {
+                            const d = Math.sqrt(Math.pow(mouseX - c.x, 2) + Math.pow(mouseY - c.y, 2));
+                            if (d > maxDist) {
+                                maxDist = d;
+                                bestCorner = c;
+                            }
+                        });
+                        targetX = bestCorner.x;
+                        targetY = bestCorner.y;
+                        break;
+                    }
+                    case 'CIRCLE_SHIELD': { // 22. Сферический уворот
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX) + 0.5;
+                        targetX += Math.cos(a) * 12;
+                        targetY += Math.sin(a) * 12;
+                        break;
+                    }
+                    case 'MATRIX_FALL': { // 23. Резкое падение строго вниз
+                        targetY += 18;
+                        if (targetY > window.innerHeight - 100) targetY = 40;
+                        break;
+                    }
+                    case 'QUICK_DASH': { // 24. Молниеносный рывок
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 35;
+                        targetY += Math.sin(a) * 35;
+                        break;
+                    }
+                    case 'DIAGONAL': { // 25. Диагональный уход
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        const diagAngle = Math.round(a / (Math.PI / 4)) * (Math.PI / 4);
+                        targetX += Math.cos(diagAngle) * 15;
+                        targetY += Math.sin(diagAngle) * 15;
+                        break;
+                    }
+                    case 'ZIGZAG': { // 26. Движение зигзагом
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        const wave = Math.sin(Date.now() * 0.05) * 15;
+                        targetX += Math.cos(a) * 10 - Math.sin(a) * wave;
+                        targetY += Math.sin(a) * 10 + Math.cos(a) * wave;
+                        break;
+                    }
+                    case 'WOBBLE': { // 27. Тряска желе
+                        targetScale = 1 + Math.sin(Date.now() * 0.05) * 0.25;
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 8;
+                        targetY += Math.sin(a) * 8;
+                        break;
+                    }
+                    case 'MAGNET_REPULSE': { // 28. Магнитное выталкивание
+                        const force = 3000 / dist;
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * force;
+                        targetY += Math.sin(a) * force;
+                        break;
+                    }
+                    case 'SIZE_MORPH': { // 29. Изменение пропорций (сплющивание)
+                        targetScale = 1.4;
+                        const a = Math.atan2(bCY - mouseY, bCX - mouseX);
+                        targetX += Math.cos(a) * 12;
+                        targetY += Math.sin(a) * 12;
+                        break;
+                    }
+                    case 'TELEPORT_DODGE': { // 30. Короткая телепортация в радиусе 100px
+                        if (dist < 50) {
+                            const a = Math.random() * Math.PI * 2;
+                            targetX = bCX + Math.cos(a) * 120 - btnRect.width / 2;
+                            targetY = bCY + Math.sin(a) * 120 - btnRect.height / 2;
+                            btnX = targetX; btnY = targetY;
+                        }
+                        break;
+                    }
+                }
+            } else {
+                // Если курсор далеко
+                targetScale = 1;
+                targetOpacity = 1;
+                targetAngleDeg = 0;
+            }
+
+            // Барьеры
+            const pad = 25;
+            if (targetX < pad) targetX = pad;
+            if (targetX > window.innerWidth - btnRect.width - pad) targetX = window.innerWidth - btnRect.width - pad;
+            if (targetY < pad) targetY = pad;
+            if (targetY > window.innerHeight - btnRect.height - pad) targetY = window.innerHeight - btnRect.height - pad;
+
+            // Плавное приближение координат (Lerp)
+            btnX += (targetX - btnX) * 0.12;
+            btnY += (targetY - btnY) * 0.12;
+            scale += (targetScale - scale) * 0.15;
+            opacity += (targetOpacity - opacity) * 0.15;
+            angleDeg += (targetAngleDeg - angleDeg) * 0.15;
+
+            yesBtn.style.left = btnX + 'px';
+            yesBtn.style.top = btnY + 'px';
+            yesBtn.style.transform = `scale(${scale}) rotate(${angleDeg}deg)`;
+            yesBtn.style.opacity = opacity;
+
+            // Движение клонов
+            clones.forEach(clone => {
+                const cRect = clone.el.getBoundingClientRect();
+                const cx = clone.x + cRect.width / 2;
+                const cy = clone.y + cRect.height / 2;
+                const d = Math.sqrt(Math.pow(mouseX - cx, 2) + Math.pow(mouseY - cy, 2));
+
+                if (d < fearRadius) {
+                    const f = (fearRadius - d) * 0.35 + (mouseSpeed * 0.3);
+                    const a = Math.atan2(cy - mouseY, cx - mouseX);
+                    clone.tx += Math.cos(a) * f;
+                    clone.ty += Math.sin(a) * f;
+                }
+
+                if (clone.tx < pad) clone.tx = pad;
+                if (clone.tx > window.innerWidth - cRect.width - pad) clone.tx = window.innerWidth - cRect.width - pad;
+                if (clone.ty < pad) clone.ty = pad;
+                if (clone.ty > window.innerHeight - cRect.height - pad) clone.ty = window.innerHeight - cRect.height - pad;
+
+                clone.x += (clone.tx - clone.x) * 0.12;
+                clone.y += (clone.ty - clone.y) * 0.12;
+
+                clone.el.style.left = clone.x + 'px';
+                clone.el.style.top = clone.y + 'px';
+            });
+
+            requestAnimationFrame(updatePhysics);
+        }
+
+        // Клик по главной кнопке
+        yesBtn.addEventListener('click', (e) => {
+            if (Math.random() < 0.98) {
+                e.preventDefault();
+                targetX = Math.random() * (window.innerWidth - 130);
+                targetY = Math.random() * (window.innerHeight - 70);
+                btnX = targetX; btnY = targetY;
+                playBeep(220, 'sawtooth', 0.25);
+                showBubble("Ха! Пронесло!", btnX, btnY);
+                return;
+            }
+
+            // Победный финал
+            playBeep(523, 'sine', 0.1);
+            setTimeout(() => playBeep(659, 'sine', 0.1), 80);
+            setTimeout(() => playBeep(784, 'sine', 0.25), 160);
+            alert("Поздравляем! Вы официально верифицированы как Даня! 🎉👾");
+            window.location.reload();
+        });
+
+        yesBtn.addEventListener('focus', () => yesBtn.blur());
+
+        // Запуск
+        initButtonPos();
+        requestAnimationFrame(updatePhysics);
+
+        // Интерактивные тролль-действия
+        function triggerTroll(type) {
+            playBeep(150, 'sine', 0.1);
+            if (type === 'close') {
+                showBubble("Закрытие заблокировано администратором!", btnX, btnY);
+            } else if (type === 'no') {
+                showBubble("Эй, кнопка 'Нет' выключена!", btnX, btnY);
+            } else if (type === 'start') {
+                bsod.style.display = 'block';
+                playBeep(90, 'sawtooth', 0.6);
+            }
+        }
+
+        // Закрытие BSOD
+        document.addEventListener('click', () => {
+            if (bsod.style.display === 'block') {
+                bsod.style.display = 'none';
+                initButtonPos();
+            }
+        });
+    </script>
+</body>
+</html>
+
+```
+
