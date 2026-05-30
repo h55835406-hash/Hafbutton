@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danya Impossible 100 Attacks v10.0</title>
+    <title>Danya Absolute Zero Chance v11.0</title>
     <style>
         @font-face { font-family: 'MS Sans Serif'; src: local('MS Sans Serif'), local('Arial'); }
         * { box-sizing: border-box; font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif; font-size: 11px; image-rendering: pixelated; }
@@ -18,7 +18,7 @@
         .win95-content { padding: 20px; background-color: #111111; display: flex; flex-direction: column; gap: 12px; }
         .win95-btn { background-color: #222; border: 2px solid; border-color: #444 #050505 #050505 #444; color: #ffffff; padding: 6px 20px; min-width: 80px; text-align: center; cursor: pointer; font-weight: bold; }
         .win95-btn.disabled { color: #444; cursor: default; border-color: #222 #050505 #050505 #222; }
-        .evading-btn { position: fixed; z-index: 1000; white-space: nowrap; background: linear-gradient(135deg, #222, #050505); color: #00ffff; border-color: #00ffff #005555 #005555 #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); font-weight: bold; }
+        .evading-btn { position: fixed; z-index: 1000; white-space: nowrap; background: linear-gradient(135deg, #222, #050505); color: #00ffff; border-color: #00ffff #005555 #005555 #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); font-weight: bold; transform-origin: center; transition: opacity 0.1s ease; }
         .clone-btn { position: fixed; opacity: 0.8; z-index: 990; border-style: dashed; color: #ff00ff; border-color: #ff00ff #800080 #800080 #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
         .speech-bubble { position: fixed; background: #050505; border: 1px solid #00ffff; border-radius: 3px; padding: 5px 10px; color: #00ffff; font-size: 10px; z-index: 1100; pointer-events: none; white-space: nowrap; }
         #hud { position: fixed; top: 15px; right: 15px; background: rgba(5, 5, 5, 0.9); border: 1px solid #222; padding: 10px; color: #666; font-family: monospace; z-index: 50; line-height: 1.4; }
@@ -33,7 +33,7 @@
     <div id="desktop">
         <div id="mainWindow" class="win95-window" style="width: 360px; left: calc(50% - 180px); top: calc(50% - 100px);">
             <div class="win95-header">
-                <div>🔒 System_Lock.exe</div>
+                <div>🔒 Absolute_Protection.exe</div>
                 <div class="win95-close" onclick="triggerTroll('close')">×</div>
             </div>
             <div class="win95-content">
@@ -42,8 +42,8 @@
                         <span style="color: black; font-weight: bold; font-size: 20px;">?</span>
                     </div>
                     <div>
-                        <p style="margin: 0 0 4px 0; font-weight: bold; color: #00ffff;">Проверка прав</p>
-                        <p style="margin: 0; color: #aaa;">Вы действительно являетесь Даней?</p>
+                        <p style="margin: 0 0 4px 0; font-weight: bold; color: #00ffff;">Проверка личности</p>
+                        <p style="margin: 0; color: #aaa;">Вы действительно Даня?</p>
                     </div>
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; height: 35px;">
@@ -57,7 +57,7 @@
     </div>
 
     <div id="hud">
-        <div>АЛГОРИТМ ИИ: <b id="hud-mode">001 / REPEL_01</b></div>
+        <div>АЛГОРИТМ ИИ: <b id="hud-mode">001 / INFINITE_EVADE</b></div>
         <div>КООРДИНАТЫ: <span id="hud-coords" style="color: #fff;">X: 0 Y: 0</span></div>
         <div>АКТИВНЫХ ФЕЙКОВ: <span id="hud-clones" style="color: #ff00ff;">0</span></div>
     </div>
@@ -88,7 +88,6 @@
         let bubble = null, bubbleTimer = null;
         let currentModeIdx = 0;
 
-        // Генерация ровно 100 честных именованных функций
         const modeNames = [
             "REPEL_BASE", "QUICK_TELEPORT", "MICRO_SHRINK", "MATRIX_DODGE", "MIRROR_X", "ALPHA_GHOST", "FORCE_SHIELD", "EDGE_SLIDE", "QUANTUM_PORTAL", "SIN_WAVE",
             "ZIGZAG_RUN", "PANIC_SHAKE", "WOBBLE_JELLY", "GRAVITY_FALL", "MAGNET_PUSH", "MORPH_LONG", "GLITCH_FLICKER", "CORNER_LOCK", "ORBIT_MOUSE", "CHAOS_DASH",
@@ -102,7 +101,7 @@
             "SHAKE_H", "TELEPORT_CORNER", "TELEPORT_CENTER", "GHOST_FADE", "MIRROR_Y", "QUAD_JUMP", "FAST_SWIPE", "SIDE_STEP", "TELEPORT_UNDER", "ULTIMATE_DODGE"
         ];
 
-        const phrases = ["Ха-ха, мимо!", "Не поймаешь!", "Даня, увы!", "Я тут ⚡", "Упс!", "Квантовый щит!", "Обманка!", "Попробуй еще!", "Изи уворот", "Ошибка наведения!"];
+        const phrases = ["Даже не думай!", "Радиус блокировки 500px!", "Дистанция соблюдена!", "Курсор не пройдет!", "Магнитное поле!", "Запретная зона!"];
 
         function init() {
             const winRect = mainWindow.getBoundingClientRect();
@@ -172,167 +171,176 @@
             const bCX = btnX + r.width / 2, bCY = btnY + r.height / 2;
             const dist = Math.sqrt(Math.pow(mouseX - bCX, 2) + Math.pow(mouseY - bCY, 2));
             
-            // Радиус абсолютной защиты (увеличен для полной невозможности)
-            const fear = 200 + Math.min(mouseSpeed * 1.5, 200);
+            // Огромная дистанция уклонения (наведение физически невозможно)
+            const fear = 450 + Math.min(mouseSpeed * 2.5, 300);
 
             if (dist < fear) {
                 const a = Math.atan2(bCY - mouseY, bCX - mouseX);
                 
-                // РОВНО 100 СВОЕОБРАЗНЫХ ФУНКЦИЙ УВОРОТА ИИ
-                if (currentModeIdx === 0) { targetX += Math.cos(a) * 15; targetY += Math.sin(a) * 15; }
+                // Кнопка становится полностью прозрачной и неосязаемой для кликов при сближении
+                if (dist < 300) {
+                    targetOpacity = 0.0;
+                    yesBtn.style.pointerEvents = 'none'; 
+                } else {
+                    targetOpacity = 1.0;
+                    yesBtn.style.pointerEvents = 'auto';
+                }
+
+                // 100 алгоритмов жесткого отброса
+                if (currentModeIdx === 0) { targetX += Math.cos(a) * 45; targetY += Math.sin(a) * 45; }
                 else if (currentModeIdx === 1) { targetX = Math.random() * (window.innerWidth - 150); targetY = Math.random() * (window.innerHeight - 80); btnX = targetX; btnY = targetY; }
-                else if (currentModeIdx === 2) { targetScale = 0.1; targetX += Math.cos(a) * 8; }
-                else if (currentModeIdx === 3) { targetX += Math.cos(a) * 30; targetY += Math.sin(a) * 30; }
+                else if (currentModeIdx === 2) { targetScale = 0.01; targetX += Math.cos(a) * 20; }
+                else if (currentModeIdx === 3) { targetX += Math.cos(a) * 60; targetY += Math.sin(a) * 60; }
                 else if (currentModeIdx === 4) { targetX = window.innerWidth - mouseX - 50; }
-                else if (currentModeIdx === 5) { targetOpacity = 0.05; targetX += Math.cos(a) * 10; }
-                else if (currentModeIdx === 6) { targetX += Math.cos(a) * (fear - dist); }
-                else if (currentModeIdx === 7) { targetX += 20; if(targetX > window.innerWidth - 130) targetX = 30; }
+                else if (currentModeIdx === 5) { targetOpacity = 0; targetX += Math.cos(a) * 30; }
+                else if (currentModeIdx === 6) { targetX += Math.cos(a) * (fear - dist) * 1.5; }
+                else if (currentModeIdx === 7) { targetX += 40; if(targetX > window.innerWidth - 130) targetX = 30; }
                 else if (currentModeIdx === 8) { targetX = window.innerWidth - btnX - 100; targetY = window.innerHeight - btnY - 40; btnX = targetX; btnY = targetY; }
-                else if (currentModeIdx === 9) { targetY += Math.sin(Date.now() * 0.03) * 20; targetX += Math.cos(a) * 8; }
-                else if (currentModeIdx === 10) { targetX += Math.cos(a) * 12; targetY += Math.sin(Date.now() * 0.05) * 25; }
-                else if (currentModeIdx === 11) { targetX += (Math.random() - 0.5) * 50; targetY += (Math.random() - 0.5) * 50; }
-                else if (currentModeIdx === 12) { targetScale = 1.3 + Math.sin(Date.now() * 0.05) * 0.3; targetX += Math.cos(a) * 8; }
-                else if (currentModeIdx === 13) { targetY += 15; if(targetY > window.innerHeight - 60) targetY = 30; }
-                else if (currentModeIdx === 14) { const force = 4000/dist; targetX += Math.cos(a) * force; targetY += Math.sin(a) * force; }
-                else if (currentModeIdx === 15) { targetScale = 2; targetOpacity = 0.4; targetX += Math.cos(a) * 12; }
-                else if (currentModeIdx === 16) { targetOpacity = Math.random() > 0.5 ? 1 : 0.1; targetX += (Math.random() - 0.5) * 30; }
-                else if (currentModeIdx === 17) { targetX = 30; targetY = 30; }
-                else if (currentModeIdx === 18) { targetX = mouseX + Math.cos(Date.now() * 0.01) * 120 - 50; targetY = mouseY + Math.sin(Date.now() * 0.01) * 120 - 20; }
-                else if (currentModeIdx === 19) { targetX += Math.cos(a) * 40; targetY += Math.sin(a) * 40; }
-                else if (currentModeIdx === 20) { targetX -= Math.cos(a) * 20; targetY -= Math.sin(a) * 20; }
-                else if (currentModeIdx === 21) { if(dist < 80) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
-                else if (currentModeIdx === 22) { targetOpacity = 0.1; }
-                else if (currentModeIdx === 23) { targetX += Math.cos(a) * 25; if(targetX > window.innerWidth - 120 || targetX < 20) targetX = window.innerWidth / 2; }
-                else if (currentModeIdx === 24) { targetX += Math.cos(a) * (20 + mouseSpeed); targetY += Math.sin(a) * (20 + mouseSpeed); }
-                else if (currentModeIdx === 25) { targetX += Math.sin(Date.now() * 0.02) * 15; targetY += Math.cos(Date.now() * 0.02) * 15; }
-                else if (currentModeIdx === 26) { targetAngle = 180; targetX += Math.cos(a) * 10; }
-                else if (currentModeIdx === 27) { spawnClone(); targetX = Math.random() * window.innerWidth; currentModeIdx = 0; }
-                else if (currentModeIdx === 28) { const crv = a + 0.5; targetX += Math.cos(crv) * 15; targetY += Math.sin(crv) * 15; }
-                else if (currentModeIdx === 29) { const r_sp = Date.now() * 0.01; targetX += Math.cos(r_sp) * 12; targetY += Math.sin(r_sp) * 12; }
-                else if (currentModeIdx === 30) { targetX += Math.round(Math.cos(a)) * 25; targetY += Math.round(Math.sin(a)) * 25; }
-                else if (currentModeIdx === 31) { targetX += Math.cos(a) * 50; }
-                else if (currentModeIdx === 32) { if(dist < 90) { targetX = mouseX - 200; targetY = mouseY - 200; } }
-                else if (currentModeIdx === 33) { targetOpacity = 0.3; targetAngle = 45; targetX += Math.cos(a) * 12; }
-                else if (currentModeIdx === 34) { targetY -= 15; if(targetY < 30) targetY = window.innerHeight - 80; }
-                else if (currentModeIdx === 35) { targetY += 15; if(targetY > window.innerHeight - 80) targetY = 30; }
-                else if (currentModeIdx === 36) { targetX -= 15; if(targetX < 20) targetX = window.innerWidth - 120; }
-                else if (currentModeIdx === 37) { targetX += 15; if(targetX > window.innerWidth - 120) targetX = 20; }
-                else if (currentModeIdx === 38) { targetY = window.innerHeight - 80; }
-                else if (currentModeIdx === 39) { targetY = 40; }
-                else if (currentModeIdx === 40) { targetX = 30; targetY = 30; }
-                else if (currentModeIdx === 41) { targetX = window.innerWidth - 130; targetY = 30; }
-                else if (currentModeIdx === 42) { targetX = 30; targetY = window.innerHeight - 80; }
-                else if (currentModeIdx === 43) { targetX = window.innerWidth - 130; targetY = window.innerHeight - 80; }
-                else if (currentModeIdx === 44) { const edges = [30, window.innerWidth - 130]; targetX = edges[Math.floor(Math.random()*2)]; }
+                else if (currentModeIdx === 9) { targetY += Math.sin(Date.now() * 0.03) * 40; targetX += Math.cos(a) * 20; }
+                else if (currentModeIdx === 10) { targetX += Math.cos(a) * 30; targetY += Math.sin(Date.now() * 0.05) * 50; }
+                else if (currentModeIdx === 11) { targetX += (Math.random() - 0.5) * 120; targetY += (Math.random() - 0.5) * 120; }
+                else if (currentModeIdx === 12) { targetScale = 0.1; targetX += Math.cos(a) * 25; }
+                else if (currentModeIdx === 13) { targetY += 30; if(targetY > window.innerHeight - 60) targetY = 30; }
+                else if (currentModeIdx === 14) { const force = 12000/dist; targetX += Math.cos(a) * force; targetY += Math.sin(a) * force; }
+                else if (currentModeIdx === 15) { targetScale = 0.2; targetOpacity = 0; targetX += Math.cos(a) * 30; }
+                else if (currentModeIdx === 16) { targetOpacity = 0; targetX += (Math.random() - 0.5) * 90; }
+                else if (currentModeIdx === 17) { targetX = 40; targetY = 40; }
+                else if (currentModeIdx === 18) { targetX = mouseX + Math.cos(Date.now() * 0.01) * 300 - 50; targetY = mouseY + Math.sin(Date.now() * 0.01) * 300 - 20; }
+                else if (currentModeIdx === 19) { targetX += Math.cos(a) * 90; targetY += Math.sin(a) * 90; }
+                else if (currentModeIdx === 20) { targetX -= Math.cos(a) * 40; targetY -= Math.sin(a) * 40; }
+                else if (currentModeIdx === 21) { if(dist < 350) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
+                else if (currentModeIdx === 22) { targetOpacity = 0; }
+                else if (currentModeIdx === 23) { targetX += Math.cos(a) * 60; if(targetX > window.innerWidth - 120 || targetX < 20) targetX = window.innerWidth / 2; }
+                else if (currentModeIdx === 24) { targetX += Math.cos(a) * (50 + mouseSpeed * 2); targetY += Math.sin(a) * (50 + mouseSpeed * 2); }
+                else if (currentModeIdx === 25) { targetX += Math.sin(Date.now() * 0.02) * 45; targetY += Math.cos(Date.now() * 0.02) * 45; }
+                else if (currentModeIdx === 26) { targetAngle = 180; targetX += Math.cos(a) * 30; }
+                else if (currentModeIdx === 27) { spawnClone(); targetX = Math.random() * window.innerWidth; currentModeIdx = 1; }
+                else if (currentModeIdx === 28) { const crv = a + 0.8; targetX += Math.cos(crv) * 40; targetY += Math.sin(crv) * 40; }
+                else if (currentModeIdx === 29) { const r_sp = Date.now() * 0.01; targetX += Math.cos(r_sp) * 40; targetY += Math.sin(r_sp) * 40; }
+                else if (currentModeIdx === 30) { targetX += Math.round(Math.cos(a)) * 60; targetY += Math.round(Math.sin(a)) * 60; }
+                else if (currentModeIdx === 31) { targetX += Math.cos(a) * 120; }
+                else if (currentModeIdx === 32) { if(dist < 300) { targetX = mouseX - 300; targetY = mouseY - 300; } }
+                else if (currentModeIdx === 33) { targetOpacity = 0; targetAngle = 90; targetX += Math.cos(a) * 40; }
+                else if (currentModeIdx === 34) { targetY -= 40; if(targetY < 30) targetY = window.innerHeight - 80; }
+                else if (currentModeIdx === 35) { targetY += 40; if(targetY > window.innerHeight - 80) targetY = 30; }
+                else if (currentModeIdx === 36) { targetX -= 40; if(targetX < 20) targetX = window.innerWidth - 120; }
+                else if (currentModeIdx === 37) { targetX += 40; if(targetX > window.innerWidth - 120) targetX = 20; }
+                else if (currentModeIdx === 38) { targetY = window.innerHeight - 120; }
+                else if (currentModeIdx === 39) { targetY = 60; }
+                else if (currentModeIdx === 40) { targetX = 50; targetY = 50; }
+                else if (currentModeIdx === 41) { targetX = window.innerWidth - 150; targetY = 50; }
+                else if (currentModeIdx === 42) { targetX = 50; targetY = window.innerHeight - 100; }
+                else if (currentModeIdx === 43) { targetX = window.innerWidth - 150; targetY = window.innerHeight - 100; }
+                else if (currentModeIdx === 44) { const edges = [40, window.innerWidth - 150]; targetX = edges[Math.floor(Math.random()*2)]; }
                 else if (currentModeIdx === 45) { targetX = window.innerWidth / 2 - 50; targetY = window.innerHeight / 2 - 20; }
-                else if (currentModeIdx === 46) { targetX += Math.cos(a) * 35; }
-                else if (currentModeIdx === 47) { targetX += Math.cos(a) * 3; }
-                else if (currentModeIdx === 48) { targetX += (Math.random() - 0.5) * 80; targetOpacity = 0.2; }
+                else if (currentModeIdx === 46) { targetX += Math.cos(a) * 80; }
+                else if (currentModeIdx === 47) { targetX += Math.cos(a) * 10; }
+                else if (currentModeIdx === 48) { targetX += (Math.random() - 0.5) * 150; targetOpacity = 0; }
                 else if (currentModeIdx === 49) { targetX = Math.random() * window.innerWidth; btnX = targetX; }
-                else if (currentModeIdx === 50) { if(dist < 100) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
-                else if (currentModeIdx === 51) { targetX += (Math.random() - 0.5) * 20; targetY += (Math.random() - 0.5) * 20; }
-                else if (currentModeIdx === 52) { targetX = mouseX + Math.cos(Date.now()*0.05)*100; targetY = mouseY + Math.sin(Date.now()*0.05)*100; }
-                else if (currentModeIdx === 53) { targetY -= 20; }
-                else if (currentModeIdx === 54) { targetX = mouseX; targetY = mouseY; targetX -= Math.cos(a)*150; targetY -= Math.sin(a)*150; }
-                else if (currentModeIdx === 55) { targetScale = 0.5; targetX += Math.cos(a)*15; }
-                else if (currentModeIdx === 56) { targetScale = 1.5; targetY += Math.sin(a)*15; }
-                else if (currentModeIdx === 57) { targetOpacity = 0.15; }
-                else if (currentModeIdx === 58) { if (dist < 120) targetOpacity = 0; else targetOpacity = 1; }
-                else if (currentModeIdx === 59) { targetX = mouseX + 150; }
-                else if (currentModeIdx === 60) { spawnClone(); spawnClone(); currentModeIdx = 0; }
-                else if (currentModeIdx === 61) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.003)*200; targetY = window.innerHeight/2 + Math.sin(Date.now()*0.003)*200; }
-                else if (currentModeIdx === 62) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.002)*100; }
-                else if (currentModeIdx === 63) { targetScale = 0.3; }
-                else if (currentModeIdx === 64) { targetScale = 1.8; }
-                else if (currentModeIdx === 65) { targetY += Math.sin(Date.now() * 0.08) * 30; }
-                else if (currentModeIdx === 66) { targetX += Math.sin(Date.now() * 0.1) * 30; }
-                else if (currentModeIdx === 67) { targetY += 25; if(targetY > window.innerHeight - 60) targetY = 40; }
-                else if (currentModeIdx === 68) { targetScale = Math.random() * 1.5; targetX += Math.cos(a)*10; }
-                else if (currentModeIdx === 69) { targetAngle = (targetAngle + 15) % 360; targetX += Math.cos(a)*12; }
+                else if (currentModeIdx === 50) { if(dist < 400) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
+                else if (currentModeIdx === 51) { targetX += (Math.random() - 0.5) * 60; targetY += (Math.random() - 0.5) * 60; }
+                else if (currentModeIdx === 52) { targetX = mouseX + Math.cos(Date.now()*0.05)*250; targetY = mouseY + Math.sin(Date.now()*0.05)*250; }
+                else if (currentModeIdx === 53) { targetY -= 40; }
+                else if (currentModeIdx === 54) { targetX = mouseX; targetY = mouseY; targetX -= Math.cos(a)*300; targetY -= Math.sin(a)*300; }
+                else if (currentModeIdx === 55) { targetScale = 0.05; targetX += Math.cos(a)*35; }
+                else if (currentModeIdx === 56) { targetScale = 0.1; targetY += Math.sin(a)*35; }
+                else if (currentModeIdx === 57) { targetOpacity = 0; }
+                else if (currentModeIdx === 58) { if (dist < 450) targetOpacity = 0; else targetOpacity = 1; }
+                else if (currentModeIdx === 59) { targetX = mouseX + 300; }
+                else if (currentModeIdx === 60) { spawnClone(); spawnClone(); currentModeIdx = 1; }
+                else if (currentModeIdx === 61) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.003)*350; targetY = window.innerHeight/2 + Math.sin(Date.now()*0.003)*350; }
+                else if (currentModeIdx === 62) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.002)*250; }
+                else if (currentModeIdx === 63) { targetScale = 0.01; }
+                else if (currentModeIdx === 64) { targetScale = 0.02; }
+                else if (currentModeIdx === 65) { targetY += Math.sin(Date.now() * 0.08) * 60; }
+                else if (currentModeIdx === 66) { targetX += Math.sin(Date.now() * 0.1) * 60; }
+                else if (currentModeIdx === 67) { targetY += 45; if(targetY > window.innerHeight - 60) targetY = 40; }
+                else if (currentModeIdx === 68) { targetScale = 0.01; targetX += Math.cos(a)*20; }
+                else if (currentModeIdx === 69) { targetAngle = (targetAngle + 45) % 360; targetX += Math.cos(a)*30; }
                 else if (currentModeIdx === 70) { targetX = window.innerWidth - mouseX; targetY = window.innerHeight - mouseY; }
-                else if (currentModeIdx === 71) { targetX += Math.cos(a) * 60; targetY += Math.sin(a) * 60; }
-                else if (currentModeIdx === 72) { targetX = 40; }
-                else if (currentModeIdx === 73) { targetX = window.innerWidth - 140; }
-                else if (currentModeIdx === 74) { targetY = 50; }
-                else if (currentModeIdx === 75) { targetY = window.innerHeight - 90; }
-                else if (currentModeIdx === 76) { targetX += Math.sin(Date.now()*0.05)*20; }
-                else if (currentModeIdx === 77) { targetY += Math.cos(Date.now()*0.05)*20; }
+                else if (currentModeIdx === 71) { targetX += Math.cos(a) * 150; targetY += Math.sin(a) * 150; }
+                else if (currentModeIdx === 72) { targetX = 60; }
+                else if (currentModeIdx === 73) { targetX = window.innerWidth - 180; }
+                else if (currentModeIdx === 74) { targetY = 80; }
+                else if (currentModeIdx === 75) { targetY = window.innerHeight - 120; }
+                else if (currentModeIdx === 76) { targetX += Math.sin(Date.now()*0.05)*50; }
+                else if (currentModeIdx === 77) { targetY += Math.cos(Date.now()*0.05)*50; }
                 else if (currentModeIdx === 78) { targetX = Math.random()*window.innerWidth; targetY = Math.random()*window.innerHeight; btnX = targetX; btnY = targetY; }
-                else if (currentModeIdx === 79) { spawnClone(); spawnClone(); spawnClone(); currentModeIdx = 0; }
-                else if (currentModeIdx === 80) { targetOpacity = (Math.sin(Date.now()*0.05)+1)/2; }
-                else if (currentModeIdx === 81) { targetScale = 1.5; targetX += Math.cos(a)*20; }
-                else if (currentModeIdx === 82) { targetScale = 0.5; targetY += Math.sin(a)*20; }
-                else if (currentModeIdx === 83) { targetX += Math.cos(a)*10; targetY += Math.sin(a)*10; }
-                else if (currentModeIdx === 84) { targetX = 30; }
-                else if (currentModeIdx === 85) { targetX = mouseX - 120; targetY = mouseY - 120; }
-                else if (currentModeIdx === 86) { targetX += 2; targetY += 2; }
-                else if (currentModeIdx === 87) { targetX += Math.cos(a)*4; }
-                else if (currentModeIdx === 88) { targetX += (Math.random()-0.5)*30; }
-                else if (currentModeIdx === 89) { targetY += Math.sin(Date.now()*0.1)*15; }
-                else if (currentModeIdx === 90) { targetX += Math.cos(Date.now()*0.1)*15; }
-                else if (currentModeIdx === 91) { targetX = 35; targetY = window.innerHeight - 85; }
-                else if (currentModeIdx === 92) { targetX = window.innerWidth - 135; targetY = 45; }
-                else if (currentModeIdx === 93) { targetOpacity = 0.2; targetX += Math.cos(a)*5; }
+                else if (currentModeIdx === 79) { spawnClone(); spawnClone(); spawnClone(); currentModeIdx = 1; }
+                else if (currentModeIdx === 80) { targetOpacity = 0; }
+                else if (currentModeIdx === 81) { targetScale = 0.01; targetX += Math.cos(a)*40; }
+                else if (currentModeIdx === 82) { targetScale = 0.01; targetY += Math.sin(a)*40; }
+                else if (currentModeIdx === 83) { targetX += Math.cos(a)*30; targetY += Math.sin(a)*30; }
+                else if (currentModeIdx === 84) { targetX = 50; }
+                else if (currentModeIdx === 85) { targetX = mouseX - 250; targetY = mouseY - 250; }
+                else if (currentModeIdx === 86) { targetX += 10; targetY += 10; }
+                else if (currentModeIdx === 87) { targetX += Math.cos(a)*15; }
+                else if (currentModeIdx === 88) { targetX += (Math.random()-0.5)*90; }
+                else if (currentModeIdx === 89) { targetY += Math.sin(Date.now()*0.1)*35; }
+                else if (currentModeIdx === 90) { targetX += Math.cos(Date.now()*0.1)*35; }
+                else if (currentModeIdx === 91) { targetX = 55; targetY = window.innerHeight - 120; }
+                else if (currentModeIdx === 92) { targetX = window.innerWidth - 180; targetY = 65; }
+                else if (currentModeIdx === 93) { targetOpacity = 0; targetX += Math.cos(a)*20; }
                 else if (currentModeIdx === 94) { targetX = window.innerWidth - mouseX; }
-                else if (currentModeIdx === 95) { if(dist<110){ targetX = Math.random()*window.innerWidth; targetY = Math.random()*window.innerHeight; } }
-                else if (currentModeIdx === 96) { targetX += Math.cos(a)*45; targetY += Math.sin(a)*45; }
-                else if (currentModeIdx === 97) { targetX += Math.cos(a)*16; }
-                else if (currentModeIdx === 98) { targetY = mouseY - 150; }
-                else if (currentModeIdx === 99) { const f_max = (fear-dist)*0.9 + mouseSpeed; targetX += Math.cos(a)*f_max; targetY += Math.sin(a)*f_max; }
+                else if (currentModeIdx === 95) { if(dist<350){ targetX = Math.random()*window.innerWidth; targetY = Math.random()*window.innerHeight; } }
+                else if (currentModeIdx === 96) { targetX += Math.cos(a)*95; targetY += Math.sin(a)*95; }
+                else if (currentModeIdx === 97) { targetX += Math.cos(a)*36; }
+                else if (currentModeIdx === 98) { targetY = mouseY - 250; }
+                else if (currentModeIdx === 99) { const f_max = (fear-dist)*1.5 + mouseSpeed * 2; targetX += Math.cos(a)*f_max; targetY += Math.sin(a)*f_max; }
             } else {
                 targetScale = 1; targetOpacity = 1; targetAngle = 0;
+                yesBtn.style.pointerEvents = 'auto';
             }
 
-            // Границы рабочей зоны
             const p = 25;
             if (targetX < p) targetX = p;
             if (targetX > window.innerWidth - r.width - p) targetX = window.innerWidth - r.width - p;
             if (targetY < p) targetY = p;
             if (targetY > window.innerHeight - r.height - p) targetY = window.innerHeight - r.height - p;
 
-            // Сверхбыстрый расчет позиции (коэффициент 0.3 для моментальной реакции)
-            btnX += (targetX - btnX) * 0.3; btnY += (targetY - btnY) * 0.3;
-            scale += (targetScale - scale) * 0.3; opacity += (targetOpacity - opacity) * 0.3; angle += (targetAngle - angle) * 0.3;
+            // Моментальный расчет без сглаживания при близком расстоянии
+            const speedFactor = dist < fear ? 0.45 : 0.25;
+            btnX += (targetX - btnX) * speedFactor; btnY += (targetY - btnY) * speedFactor;
+            scale += (targetScale - scale) * 0.4; opacity += (targetOpacity - opacity) * 0.4; angle += (targetAngle - angle) * 0.4;
 
             yesBtn.style.left = btnX + 'px'; yesBtn.style.top = btnY + 'px';
             yesBtn.style.transform = `scale(${scale}) rotate(${angle}deg)`; yesBtn.style.opacity = opacity;
 
-            // Фейк-клоны
             clones.forEach(c => {
                 const cr = c.el.getBoundingClientRect();
                 const cd = Math.sqrt(Math.pow(mouseX - (c.x + cr.width/2), 2) + Math.pow(mouseY - (c.y + cr.height/2), 2));
                 if (cd < fear) {
                     const ca = Math.atan2(c.y + cr.height/2 - mouseY, c.x + cr.width/2 - mouseX);
-                    c.tx += Math.cos(ca) * 18; c.ty += Math.sin(ca) * 18;
+                    c.tx += Math.cos(ca) * 25; c.ty += Math.sin(ca) * 25;
                 }
                 if (c.tx < p) c.tx = p; if (c.tx > window.innerWidth - cr.width - p) c.tx = window.innerWidth - cr.width - p;
                 if (c.ty < p) c.ty = p; if (c.ty > window.innerHeight - cr.height - p) c.ty = window.innerHeight - r.height - p;
-                c.x += (c.tx - c.x) * 0.2; c.y += (c.ty - c.y) * 0.2;
+                c.x += (c.tx - c.x) * 0.25; c.y += (c.ty - c.y) * 0.25;
                 c.el.style.left = c.x + 'px'; c.el.style.top = c.y + 'px';
             });
 
             requestAnimationFrame(update);
         }
 
-        // Финальный клик
+        // Клик программно заблокирован на 100%, ручное нажатие исключено алгоритмом выше, но на случай багов:
         yesBtn.addEventListener('click', (e) => {
-            // Шанс попадания урезан до 0.1%, кнопка почти всегда прыгает в последний момент
-            if (Math.random() < 0.999) { 
-                e.preventDefault();
-                targetX = Math.random() * (window.innerWidth - 120); targetY = Math.random() * (window.innerHeight - 60);
-                btnX = targetX; btnY = targetY;
-                showBubble("Критический промах ИИ!", btnX, btnY);
-                return;
-            }
+            e.preventDefault();
+            targetX = Math.random() * (window.innerWidth - 120); targetY = Math.random() * (window.innerHeight - 60);
+            btnX = targetX; btnY = targetY;
+            showBubble("Обход системы невозможен!", btnX, btnY);
+        });
+
+        // Функция вызова выигрыша для ручной проверки через консоль (F12)
+        function forceWin() {
             alert("Поздравляем! Вы прошли игру! 🎉👾");
             window.location.reload();
-        });
+        }
 
         yesBtn.addEventListener('focus', () => yesBtn.blur());
 
         function triggerTroll(t) {
-            if (t === 'close') showBubble("Закрытие заблокировано системой!", btnX, btnY);
-            if (t === 'no') showBubble("Опция 'Нет' недоступна!", btnX, btnY);
+            if (t === 'close') showBubble("Действие заблокировано ИИ!", btnX, btnY);
+            if (t === 'no') showBubble("Выбор невозможен!", btnX, btnY);
             if (t === 'start') bsod.style.display = 'block';
         }
 
