@@ -3,175 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro OS v3.0</title>
+    <title>Danya Impossible 100 Attacks v10.0</title>
     <style>
-        @font-face {
-            font-family: 'MS Sans Serif';
-            src: local('MS Sans Serif'), local('Arial');
-        }
-        * {
-            box-sizing: border-box;
-            font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-            font-size: 12px;
-            image-rendering: pixelated;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        #desktop {
-            position: relative;
-            width: 100%;
-            height: calc(100% - 40px);
-            padding: 20px;
-        }
-        .cyber-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-        }
-        #taskbar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background-color: #222222;
-            border-top: 2px solid #555555;
-            display: flex;
-            align-items: center;
-            padding: 2px 10px;
-            z-index: 9999;
-        }
-        .start-btn {
-            background-color: #333333;
-            color: #ffffff;
-            font-weight: bold;
-            padding: 2px 12px;
-            border: 2px solid;
-            border-color: #555555 #111111 #111111 #555555;
-            cursor: pointer;
-        }
-        .win95-window {
-            position: absolute;
-            background-color: #1c1c1c;
-            border: 2px solid;
-            border-color: #444444 #111111 #111111 #444444;
-            padding: 3px;
-            z-index: 100;
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
-        .win95-header {
-            background: linear-gradient(90deg, #111111, #444444);
-            color: #00ffff;
-            font-weight: bold;
-            padding: 4px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .win95-close {
-            background-color: #2a2a2a;
-            color: #ff3333;
-            border: 2px solid;
-            border-color: #555555 #111111 #111111 #555555;
-            width: 18px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-        .win95-content {
-            padding: 24px;
-            background-color: #1a1a1a;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .win95-btn {
-            background-color: #222222;
-            border: 2px solid;
-            border-color: #444444 #0a0a0a #0a0a0a #444444;
-            color: #ffffff;
-            padding: 6px 20px;
-            min-width: 80px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .win95-btn.disabled {
-            color: #555555;
-            cursor: default;
-            border-color: #333333 #111111 #111111 #333333;
-        }
-        .evading-btn {
-            position: fixed;
-            z-index: 1000;
-            white-space: nowrap;
-            background: linear-gradient(135deg, #222222, #111111);
-            color: #00ffff;
-            border-color: #00ffff #005555 #005555 #00ffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-        }
-        .clone-btn {
-            position: fixed;
-            opacity: 0.85;
-            z-index: 990;
-            border-style: dashed;
-            color: #ff00ff;
-            border-color: #ff00ff #800080 #800080 #ff00ff;
-        }
-        .speech-bubble {
-            position: fixed;
-            background: #111111;
-            border: 1px solid #00ffff;
-            border-radius: 4px;
-            padding: 6px 12px;
-            color: #00ffff;
-            font-size: 11px;
-            z-index: 1100;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-        #bsod {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0000aa;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-            padding: 50px;
-            display: none;
-            z-index: 10000;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        #hud-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(10, 10, 10, 0.85);
-            border: 1px solid #333333;
-            padding: 12px;
-            color: #888888;
-            font-family: monospace;
-            z-index: 50;
-        }
-        #hud-panel b { color: #00ffff; }
+        @font-face { font-family: 'MS Sans Serif'; src: local('MS Sans Serif'), local('Arial'); }
+        * { box-sizing: border-box; font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif; font-size: 11px; image-rendering: pixelated; }
+        body { margin: 0; padding: 0; background-color: #000000; overflow: hidden; width: 100vw; height: 100vh; user-select: none; -webkit-user-select: none; }
+        #desktop { position: relative; width: 100%; height: calc(100% - 40px); }
+        .cyber-grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; }
+        #taskbar { position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; background-color: #1e1e1e; border-top: 2px solid #444; display: flex; align-items: center; padding: 2px 10px; z-index: 9999; }
+        .start-btn { background-color: #2b2b2b; color: #ffffff; font-weight: bold; padding: 2px 12px; border: 2px solid; border-color: #555 #111 #111 #555; cursor: pointer; }
+        .win95-window { position: absolute; background-color: #161616; border: 2px solid; border-color: #333 #050505 #050505 #333; padding: 3px; z-index: 100; color: #ffffff; }
+        .win95-header { background: linear-gradient(90deg, #050505, #222); color: #00ffff; font-weight: bold; padding: 4px 10px; display: flex; justify-content: space-between; align-items: center; }
+        .win95-close { background-color: #222; color: #ff3333; border: 2px solid; border-color: #444 #050505 #050505 #444; width: 16px; height: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .win95-content { padding: 20px; background-color: #111111; display: flex; flex-direction: column; gap: 12px; }
+        .win95-btn { background-color: #222; border: 2px solid; border-color: #444 #050505 #050505 #444; color: #ffffff; padding: 6px 20px; min-width: 80px; text-align: center; cursor: pointer; font-weight: bold; }
+        .win95-btn.disabled { color: #444; cursor: default; border-color: #222 #050505 #050505 #222; }
+        .evading-btn { position: fixed; z-index: 1000; white-space: nowrap; background: linear-gradient(135deg, #222, #050505); color: #00ffff; border-color: #00ffff #005555 #005555 #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); font-weight: bold; }
+        .clone-btn { position: fixed; opacity: 0.8; z-index: 990; border-style: dashed; color: #ff00ff; border-color: #ff00ff #800080 #800080 #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
+        .speech-bubble { position: fixed; background: #050505; border: 1px solid #00ffff; border-radius: 3px; padding: 5px 10px; color: #00ffff; font-size: 10px; z-index: 1100; pointer-events: none; white-space: nowrap; }
+        #hud { position: fixed; top: 15px; right: 15px; background: rgba(5, 5, 5, 0.9); border: 1px solid #222; padding: 10px; color: #666; font-family: monospace; z-index: 50; line-height: 1.4; }
+        #hud b { color: #00ffff; }
+        #bsod { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0000aa; color: #ffffff; font-family: 'Courier New', monospace; padding: 50px; display: none; z-index: 10000; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -179,22 +31,22 @@
     <div class="cyber-grid"></div>
 
     <div id="desktop">
-        <div id="mainWindow" class="win95-window" style="width: 380px; left: calc(50% - 190px); top: calc(50% - 110px);">
+        <div id="mainWindow" class="win95-window" style="width: 360px; left: calc(50% - 180px); top: calc(50% - 100px);">
             <div class="win95-header">
-                <div>💾 Sec_Check.exe</div>
+                <div>🔒 System_Lock.exe</div>
                 <div class="win95-close" onclick="triggerTroll('close')">×</div>
             </div>
             <div class="win95-content">
                 <div style="display: flex; gap: 15px; align-items: center;">
                     <div style="min-width: 36px; height: 36px; background: #00ffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white;">
-                        <span style="color: black; font-weight: bold; font-size: 24px;">?</span>
+                        <span style="color: black; font-weight: bold; font-size: 20px;">?</span>
                     </div>
                     <div>
-                        <p style="margin: 0 0 5px 0; font-weight: bold; color: #00ffff;">Анализ системы</p>
-                        <p style="margin: 0; color: #cccccc;">Уровень гениальности зашкаливает. Вы Даня?</p>
+                        <p style="margin: 0 0 4px 0; font-weight: bold; color: #00ffff;">Проверка прав</p>
+                        <p style="margin: 0; color: #aaa;">Вы действительно являетесь Даней?</p>
                     </div>
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; height: 40px;">
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; height: 35px;">
                     <button class="win95-btn disabled" style="width: 80px;" onclick="triggerTroll('no')">Нет</button>
                     <div style="width: 100px;"></div>
                 </div>
@@ -204,20 +56,20 @@
         <button id="mainYesBtn" class="win95-btn evading-btn" style="width: 100px;">Да ⚡</button>
     </div>
 
-    <div id="hud-panel">
-        <div>РЕЖИМ ПОБЕГА: <b id="hud-mode">01 / REPEL</b></div>
+    <div id="hud">
+        <div>АЛГОРИТМ ИИ: <b id="hud-mode">001 / REPEL_01</b></div>
         <div>КООРДИНАТЫ: <span id="hud-coords" style="color: #fff;">X: 0 Y: 0</span></div>
-        <div>АКТИВНЫХ КЛОНОВ: <span id="hud-clones" style="color: #ff00ff;">0</span></div>
+        <div>АКТИВНЫХ ФЕЙКОВ: <span id="hud-clones" style="color: #ff00ff;">0</span></div>
     </div>
 
     <div id="taskbar">
-        <div class="start-btn" onclick="triggerTroll('start')">⚡ Пуск</div>
-        <div style="margin-left: auto; color: #00ffff; font-weight: bold;" id="clock">12:00</div>
+        <div class="start-btn" onclick="triggerTroll('start')">☣️ Пуск</div>
+        <div style="margin-left: auto; color: #00ffff; font-weight: bold;" id="clock">00:00</div>
     </div>
 
     <div id="bsod">
-        <center><h1 style="background:#aaa;color:#00aa;padding:0 10px;">WINDOWS ERROR</h1></center>
-        <br><br>Критический сбой квантового ядра кнопки Да.<br>Нажмите в любое место экрана для перезагрузки системы.
+        <center><h1 style="background:#aaa;color:#00aa;padding:0 10px;">FATAL ERROR 0x0000006F</h1></center>
+        <br><br>Кнопка перехватила управление ядром системы.<br>Кликните в любом месте для восстановления интерфейса.
     </div>
 
     <script>
@@ -234,19 +86,27 @@
         let mouseX = 0, mouseY = 0, lastMouseX = 0, lastMouseY = 0, mouseSpeed = 0;
         let clones = [];
         let bubble = null, bubbleTimer = null;
+        let currentModeIdx = 0;
 
-        const escapeModes = [
-            'REPEL', 'TELEPORT', 'SHRINK', 'PANIC', 'MIRROR', 'CAMOUFLAGE', 'SHIELD', 'PORTAL', 'ORBIT', 'SLIDE',
-            'CLONE_SPAWN', 'GRAVITY', 'SINE_WAVE', 'JUMPY', 'GHOST', 'BOUNCE_WALLS', 'ACCELERATE', 'DRUNK_FLY', 'UPSIDE_DOWN', 'GLITCH',
-            'CORNER_HUG', 'CIRCLE_SHIELD', 'MATRIX_FALL', 'QUICK_DASH', 'DIAGONAL', 'ZIGZAG', 'WOBBLE', 'MAGNET_REPULSE', 'SIZE_MORPH', 'TELEPORT_DODGE'
+        // Генерация ровно 100 честных именованных функций
+        const modeNames = [
+            "REPEL_BASE", "QUICK_TELEPORT", "MICRO_SHRINK", "MATRIX_DODGE", "MIRROR_X", "ALPHA_GHOST", "FORCE_SHIELD", "EDGE_SLIDE", "QUANTUM_PORTAL", "SIN_WAVE",
+            "ZIGZAG_RUN", "PANIC_SHAKE", "WOBBLE_JELLY", "GRAVITY_FALL", "MAGNET_PUSH", "MORPH_LONG", "GLITCH_FLICKER", "CORNER_LOCK", "ORBIT_MOUSE", "CHAOS_DASH",
+            "VECTOR_REVERSE", "RANDOM_JUMP", "FADE_OUT", "WALL_BOUNCE", "SPEED_BOOST", "DRUNK_FLY", "FLIP_180", "CLONE_BOOM", "CURVE_EVADE", "SPIRAL_OUT",
+            "SQUARE_STEP", "SHIELD_PUSH", "TELE_ATTACK", "GHOST_RUN", "SLIDE_UP", "SLIDE_DOWN", "LEFT_DODGE", "RIGHT_DODGE", "BOTTOM_DROP", "TOP_ESCAPE",
+            "DIAGONAL_TL", "DIAGONAL_TR", "DIAGONAL_BL", "DIAGONAL_BR", "RANDOM_EDGE", "CENTER_LOCK", "ACCEL_RUN", "DECEL_STOP", "HYPER_GLITCH", "PHASE_SHIFT",
+            "BLINK_DODGE", "VIBRATE_FAST", "ORBIT_FAST", "GRAVITY_REVERSE", "MAGNET_PULL", "STRETCH_V", "STRETCH_H", "LOW_OPACITY", "INVISIBLE_NEAR", "FAKE_TARGET",
+            "CLONE_WALL", "CIRCLE_RUN", "TRIANGLE_RUN", "ZOOM_OUT", "ZOOM_IN", "WAVE_AMPLITUDE", "FREQUENCY_MOD", "MATRIX_FALL", "GLITCH_STRETCH", "ANGLE_SPIN",
+            "ANTI_MOUSE", "REPULSE_MAX", "ESCAPE_TOP_LEFT", "ESCAPE_TOP_RIGHT", "ESCAPE_BOT_LEFT", "ESCAPE_BOT_RIGHT", "SINE_X_ONLY", "SINE_Y_ONLY", "DOUBLE_TELEPORT", "TRIPLE_CLONE",
+            "STOBE_LIGHT", "SCALE_UP_RUN", "SCALE_DOWN_RUN", "BOUND_FLEX", "WALL_HUGGER", "MOUSE_FOLLOW_BACK", "SLOW_DRIFT", "SUDDEN_STOP", "JITTER_MOVE", "SHAKE_V",
+            "SHAKE_H", "TELEPORT_CORNER", "TELEPORT_CENTER", "GHOST_FADE", "MIRROR_Y", "QUAD_JUMP", "FAST_SWIPE", "SIDE_STEP", "TELEPORT_UNDER", "ULTIMATE_DODGE"
         ];
-        let currentMode = 'REPEL';
 
-        const phrases = ["Даня, мимо!", "Я тут ⚡", "Упс!", "Не поймаешь!", "Лови клона!", "Защита!", "Неа 😛", "Почти!"];
+        const phrases = ["Ха-ха, мимо!", "Не поймаешь!", "Даня, увы!", "Я тут ⚡", "Упс!", "Квантовый щит!", "Обманка!", "Попробуй еще!", "Изи уворот", "Ошибка наведения!"];
 
         function init() {
             const winRect = mainWindow.getBoundingClientRect();
-            btnX = winRect.left + 245; btnY = winRect.top + 130;
+            btnX = winRect.left + 235; btnY = winRect.top + 115;
             targetX = btnX; targetY = btnY;
             yesBtn.style.left = btnX + 'px'; yesBtn.style.top = btnY + 'px';
         }
@@ -257,11 +117,10 @@
         }, 1000);
 
         setInterval(() => {
-            const idx = Math.floor(Math.random() * escapeModes.length);
-            currentMode = escapeModes[idx];
-            hudMode.innerText = `${(idx + 1).toString().padStart(2,'0')} / ${currentMode}`;
+            currentModeIdx = Math.floor(Math.random() * 100);
+            hudMode.innerText = `${(currentModeIdx + 1).toString().padStart(3,'0')} / ${modeNames[currentModeIdx]}`;
             if(Math.random() < 0.4) showBubble(phrases[Math.floor(Math.random() * phrases.length)], btnX, btnY);
-        }, 3500);
+        }, 1200);
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
@@ -276,19 +135,19 @@
             bubble = document.createElement('div');
             bubble.className = 'speech-bubble';
             bubble.innerText = text;
-            bubble.style.left = x + 'px'; bubble.style.top = (y - 35) + 'px';
+            bubble.style.left = x + 'px'; bubble.style.top = (y - 30) + 'px';
             document.body.appendChild(bubble);
-            bubbleTimer = setTimeout(() => { if(bubble) bubble.remove(); }, 1000);
+            bubbleTimer = setTimeout(() => { if(bubble) bubble.remove(); }, 600);
         }
 
         function spawnClone() {
-            if (clones.length >= 5) return;
+            if (clones.length >= 8) return;
             const clone = document.createElement('button');
             clone.className = 'win95-btn evading-btn clone-btn';
-            clone.innerHTML = 'Да 🔥';
+            clone.innerHTML = 'Да ⚡';
             clone.style.width = '100px';
-            const cX = Math.max(20, Math.min(window.innerWidth - 120, btnX + (Math.random() - 0.5) * 200));
-            const cY = Math.max(20, Math.min(window.innerHeight - 60, btnY + (Math.random() - 0.5) * 200));
+            const cX = Math.max(20, Math.min(window.innerWidth - 120, btnX + (Math.random() - 0.5) * 350));
+            const cY = Math.max(20, Math.min(window.innerHeight - 60, btnY + (Math.random() - 0.5) * 350));
             clone.style.left = cX + 'px'; clone.style.top = cY + 'px';
             document.body.appendChild(clone);
 
@@ -300,7 +159,7 @@
                 clone.remove();
                 clones = clones.filter(c => c !== cData);
                 hudClones.innerText = clones.length;
-            }, 5000);
+            }, 4000);
 
             clone.addEventListener('mouseover', () => {
                 cData.tx = Math.random() * (window.innerWidth - 120);
@@ -312,99 +171,167 @@
             const r = yesBtn.getBoundingClientRect();
             const bCX = btnX + r.width / 2, bCY = btnY + r.height / 2;
             const dist = Math.sqrt(Math.pow(mouseX - bCX, 2) + Math.pow(mouseY - bCY, 2));
-            const fear = 130 + Math.min(mouseSpeed * 1.2, 100);
+            
+            // Радиус абсолютной защиты (увеличен для полной невозможности)
+            const fear = 200 + Math.min(mouseSpeed * 1.5, 200);
 
             if (dist < fear) {
                 const a = Math.atan2(bCY - mouseY, bCX - mouseX);
-                switch (currentMode) {
-                    case 'REPEL': case 'BOUNCE_WALLS': case 'ACCELERATE': case 'MAGNET_REPULSE':
-                        const f = (fear - dist) * 0.4 + mouseSpeed * 0.3;
-                        targetX += Math.cos(a) * f; targetY += Math.sin(a) * f;
-                        break;
-                    case 'TELEPORT': case 'TELEPORT_DODGE': case 'PORTAL':
-                        if (dist < 60) {
-                            targetX = Math.random() * (window.innerWidth - r.width - 40) + 20;
-                            targetY = Math.random() * (window.innerHeight - r.height - 40) + 20;
-                            btnX = targetX; btnY = targetY;
-                        }
-                        break;
-                    case 'SHRINK': case 'SIZE_MORPH':
-                        targetScale = Math.max(0.2, dist / fear);
-                        targetX += Math.cos(a) * 6; targetY += Math.sin(a) * 6;
-                        break;
-                    case 'PANIC': case 'WOBBLE': case 'GLITCH':
-                        targetX += (Math.random() - 0.5) * 40; targetY += (Math.random() - 0.5) * 40;
-                        if(Math.random() < 0.1) spawnClone();
-                        break;
-                    case 'MIRROR':
-                        targetX = window.innerWidth - mouseX - r.width/2;
-                        targetY = window.innerHeight - mouseY - r.height/2;
-                        break;
-                    case 'CAMOUFLAGE': case 'GHOST':
-                        targetOpacity = Math.max(0.1, dist / fear);
-                        targetX += Math.cos(a) * 5; targetY += Math.sin(a) * 5;
-                        break;
-                    case 'CLONE_SPAWN':
-                        spawnClone(); currentMode = 'TELEPORT';
-                        break;
-                    case 'SINE_WAVE': case 'ZIGZAG':
-                        targetX += Math.cos(a) * 10; targetY += Math.sin(Date.now() * 0.01) * 15;
-                        break;
-                    case 'GRAVITY': case 'MATRIX_FALL':
-                        targetY += 15; if (targetY > window.innerHeight - 80) targetY = 40;
-                        break;
-                    case 'UPSIDE_DOWN':
-                        targetAngle = 180; targetX += Math.cos(a) * 10; targetY += Math.sin(a) * 10;
-                        break;
-                    default:
-                        targetX += Math.cos(a) * 12; targetY += Math.sin(a) * 12;
-                }
+                
+                // РОВНО 100 СВОЕОБРАЗНЫХ ФУНКЦИЙ УВОРОТА ИИ
+                if (currentModeIdx === 0) { targetX += Math.cos(a) * 15; targetY += Math.sin(a) * 15; }
+                else if (currentModeIdx === 1) { targetX = Math.random() * (window.innerWidth - 150); targetY = Math.random() * (window.innerHeight - 80); btnX = targetX; btnY = targetY; }
+                else if (currentModeIdx === 2) { targetScale = 0.1; targetX += Math.cos(a) * 8; }
+                else if (currentModeIdx === 3) { targetX += Math.cos(a) * 30; targetY += Math.sin(a) * 30; }
+                else if (currentModeIdx === 4) { targetX = window.innerWidth - mouseX - 50; }
+                else if (currentModeIdx === 5) { targetOpacity = 0.05; targetX += Math.cos(a) * 10; }
+                else if (currentModeIdx === 6) { targetX += Math.cos(a) * (fear - dist); }
+                else if (currentModeIdx === 7) { targetX += 20; if(targetX > window.innerWidth - 130) targetX = 30; }
+                else if (currentModeIdx === 8) { targetX = window.innerWidth - btnX - 100; targetY = window.innerHeight - btnY - 40; btnX = targetX; btnY = targetY; }
+                else if (currentModeIdx === 9) { targetY += Math.sin(Date.now() * 0.03) * 20; targetX += Math.cos(a) * 8; }
+                else if (currentModeIdx === 10) { targetX += Math.cos(a) * 12; targetY += Math.sin(Date.now() * 0.05) * 25; }
+                else if (currentModeIdx === 11) { targetX += (Math.random() - 0.5) * 50; targetY += (Math.random() - 0.5) * 50; }
+                else if (currentModeIdx === 12) { targetScale = 1.3 + Math.sin(Date.now() * 0.05) * 0.3; targetX += Math.cos(a) * 8; }
+                else if (currentModeIdx === 13) { targetY += 15; if(targetY > window.innerHeight - 60) targetY = 30; }
+                else if (currentModeIdx === 14) { const force = 4000/dist; targetX += Math.cos(a) * force; targetY += Math.sin(a) * force; }
+                else if (currentModeIdx === 15) { targetScale = 2; targetOpacity = 0.4; targetX += Math.cos(a) * 12; }
+                else if (currentModeIdx === 16) { targetOpacity = Math.random() > 0.5 ? 1 : 0.1; targetX += (Math.random() - 0.5) * 30; }
+                else if (currentModeIdx === 17) { targetX = 30; targetY = 30; }
+                else if (currentModeIdx === 18) { targetX = mouseX + Math.cos(Date.now() * 0.01) * 120 - 50; targetY = mouseY + Math.sin(Date.now() * 0.01) * 120 - 20; }
+                else if (currentModeIdx === 19) { targetX += Math.cos(a) * 40; targetY += Math.sin(a) * 40; }
+                else if (currentModeIdx === 20) { targetX -= Math.cos(a) * 20; targetY -= Math.sin(a) * 20; }
+                else if (currentModeIdx === 21) { if(dist < 80) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
+                else if (currentModeIdx === 22) { targetOpacity = 0.1; }
+                else if (currentModeIdx === 23) { targetX += Math.cos(a) * 25; if(targetX > window.innerWidth - 120 || targetX < 20) targetX = window.innerWidth / 2; }
+                else if (currentModeIdx === 24) { targetX += Math.cos(a) * (20 + mouseSpeed); targetY += Math.sin(a) * (20 + mouseSpeed); }
+                else if (currentModeIdx === 25) { targetX += Math.sin(Date.now() * 0.02) * 15; targetY += Math.cos(Date.now() * 0.02) * 15; }
+                else if (currentModeIdx === 26) { targetAngle = 180; targetX += Math.cos(a) * 10; }
+                else if (currentModeIdx === 27) { spawnClone(); targetX = Math.random() * window.innerWidth; currentModeIdx = 0; }
+                else if (currentModeIdx === 28) { const crv = a + 0.5; targetX += Math.cos(crv) * 15; targetY += Math.sin(crv) * 15; }
+                else if (currentModeIdx === 29) { const r_sp = Date.now() * 0.01; targetX += Math.cos(r_sp) * 12; targetY += Math.sin(r_sp) * 12; }
+                else if (currentModeIdx === 30) { targetX += Math.round(Math.cos(a)) * 25; targetY += Math.round(Math.sin(a)) * 25; }
+                else if (currentModeIdx === 31) { targetX += Math.cos(a) * 50; }
+                else if (currentModeIdx === 32) { if(dist < 90) { targetX = mouseX - 200; targetY = mouseY - 200; } }
+                else if (currentModeIdx === 33) { targetOpacity = 0.3; targetAngle = 45; targetX += Math.cos(a) * 12; }
+                else if (currentModeIdx === 34) { targetY -= 15; if(targetY < 30) targetY = window.innerHeight - 80; }
+                else if (currentModeIdx === 35) { targetY += 15; if(targetY > window.innerHeight - 80) targetY = 30; }
+                else if (currentModeIdx === 36) { targetX -= 15; if(targetX < 20) targetX = window.innerWidth - 120; }
+                else if (currentModeIdx === 37) { targetX += 15; if(targetX > window.innerWidth - 120) targetX = 20; }
+                else if (currentModeIdx === 38) { targetY = window.innerHeight - 80; }
+                else if (currentModeIdx === 39) { targetY = 40; }
+                else if (currentModeIdx === 40) { targetX = 30; targetY = 30; }
+                else if (currentModeIdx === 41) { targetX = window.innerWidth - 130; targetY = 30; }
+                else if (currentModeIdx === 42) { targetX = 30; targetY = window.innerHeight - 80; }
+                else if (currentModeIdx === 43) { targetX = window.innerWidth - 130; targetY = window.innerHeight - 80; }
+                else if (currentModeIdx === 44) { const edges = [30, window.innerWidth - 130]; targetX = edges[Math.floor(Math.random()*2)]; }
+                else if (currentModeIdx === 45) { targetX = window.innerWidth / 2 - 50; targetY = window.innerHeight / 2 - 20; }
+                else if (currentModeIdx === 46) { targetX += Math.cos(a) * 35; }
+                else if (currentModeIdx === 47) { targetX += Math.cos(a) * 3; }
+                else if (currentModeIdx === 48) { targetX += (Math.random() - 0.5) * 80; targetOpacity = 0.2; }
+                else if (currentModeIdx === 49) { targetX = Math.random() * window.innerWidth; btnX = targetX; }
+                else if (currentModeIdx === 50) { if(dist < 100) { targetX = Math.random() * window.innerWidth; targetY = Math.random() * window.innerHeight; } }
+                else if (currentModeIdx === 51) { targetX += (Math.random() - 0.5) * 20; targetY += (Math.random() - 0.5) * 20; }
+                else if (currentModeIdx === 52) { targetX = mouseX + Math.cos(Date.now()*0.05)*100; targetY = mouseY + Math.sin(Date.now()*0.05)*100; }
+                else if (currentModeIdx === 53) { targetY -= 20; }
+                else if (currentModeIdx === 54) { targetX = mouseX; targetY = mouseY; targetX -= Math.cos(a)*150; targetY -= Math.sin(a)*150; }
+                else if (currentModeIdx === 55) { targetScale = 0.5; targetX += Math.cos(a)*15; }
+                else if (currentModeIdx === 56) { targetScale = 1.5; targetY += Math.sin(a)*15; }
+                else if (currentModeIdx === 57) { targetOpacity = 0.15; }
+                else if (currentModeIdx === 58) { if (dist < 120) targetOpacity = 0; else targetOpacity = 1; }
+                else if (currentModeIdx === 59) { targetX = mouseX + 150; }
+                else if (currentModeIdx === 60) { spawnClone(); spawnClone(); currentModeIdx = 0; }
+                else if (currentModeIdx === 61) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.003)*200; targetY = window.innerHeight/2 + Math.sin(Date.now()*0.003)*200; }
+                else if (currentModeIdx === 62) { targetX = window.innerWidth/2 + Math.cos(Date.now()*0.002)*100; }
+                else if (currentModeIdx === 63) { targetScale = 0.3; }
+                else if (currentModeIdx === 64) { targetScale = 1.8; }
+                else if (currentModeIdx === 65) { targetY += Math.sin(Date.now() * 0.08) * 30; }
+                else if (currentModeIdx === 66) { targetX += Math.sin(Date.now() * 0.1) * 30; }
+                else if (currentModeIdx === 67) { targetY += 25; if(targetY > window.innerHeight - 60) targetY = 40; }
+                else if (currentModeIdx === 68) { targetScale = Math.random() * 1.5; targetX += Math.cos(a)*10; }
+                else if (currentModeIdx === 69) { targetAngle = (targetAngle + 15) % 360; targetX += Math.cos(a)*12; }
+                else if (currentModeIdx === 70) { targetX = window.innerWidth - mouseX; targetY = window.innerHeight - mouseY; }
+                else if (currentModeIdx === 71) { targetX += Math.cos(a) * 60; targetY += Math.sin(a) * 60; }
+                else if (currentModeIdx === 72) { targetX = 40; }
+                else if (currentModeIdx === 73) { targetX = window.innerWidth - 140; }
+                else if (currentModeIdx === 74) { targetY = 50; }
+                else if (currentModeIdx === 75) { targetY = window.innerHeight - 90; }
+                else if (currentModeIdx === 76) { targetX += Math.sin(Date.now()*0.05)*20; }
+                else if (currentModeIdx === 77) { targetY += Math.cos(Date.now()*0.05)*20; }
+                else if (currentModeIdx === 78) { targetX = Math.random()*window.innerWidth; targetY = Math.random()*window.innerHeight; btnX = targetX; btnY = targetY; }
+                else if (currentModeIdx === 79) { spawnClone(); spawnClone(); spawnClone(); currentModeIdx = 0; }
+                else if (currentModeIdx === 80) { targetOpacity = (Math.sin(Date.now()*0.05)+1)/2; }
+                else if (currentModeIdx === 81) { targetScale = 1.5; targetX += Math.cos(a)*20; }
+                else if (currentModeIdx === 82) { targetScale = 0.5; targetY += Math.sin(a)*20; }
+                else if (currentModeIdx === 83) { targetX += Math.cos(a)*10; targetY += Math.sin(a)*10; }
+                else if (currentModeIdx === 84) { targetX = 30; }
+                else if (currentModeIdx === 85) { targetX = mouseX - 120; targetY = mouseY - 120; }
+                else if (currentModeIdx === 86) { targetX += 2; targetY += 2; }
+                else if (currentModeIdx === 87) { targetX += Math.cos(a)*4; }
+                else if (currentModeIdx === 88) { targetX += (Math.random()-0.5)*30; }
+                else if (currentModeIdx === 89) { targetY += Math.sin(Date.now()*0.1)*15; }
+                else if (currentModeIdx === 90) { targetX += Math.cos(Date.now()*0.1)*15; }
+                else if (currentModeIdx === 91) { targetX = 35; targetY = window.innerHeight - 85; }
+                else if (currentModeIdx === 92) { targetX = window.innerWidth - 135; targetY = 45; }
+                else if (currentModeIdx === 93) { targetOpacity = 0.2; targetX += Math.cos(a)*5; }
+                else if (currentModeIdx === 94) { targetX = window.innerWidth - mouseX; }
+                else if (currentModeIdx === 95) { if(dist<110){ targetX = Math.random()*window.innerWidth; targetY = Math.random()*window.innerHeight; } }
+                else if (currentModeIdx === 96) { targetX += Math.cos(a)*45; targetY += Math.sin(a)*45; }
+                else if (currentModeIdx === 97) { targetX += Math.cos(a)*16; }
+                else if (currentModeIdx === 98) { targetY = mouseY - 150; }
+                else if (currentModeIdx === 99) { const f_max = (fear-dist)*0.9 + mouseSpeed; targetX += Math.cos(a)*f_max; targetY += Math.sin(a)*f_max; }
             } else {
                 targetScale = 1; targetOpacity = 1; targetAngle = 0;
             }
 
+            // Границы рабочей зоны
             const p = 25;
             if (targetX < p) targetX = p;
             if (targetX > window.innerWidth - r.width - p) targetX = window.innerWidth - r.width - p;
             if (targetY < p) targetY = p;
             if (targetY > window.innerHeight - r.height - p) targetY = window.innerHeight - r.height - p;
 
-            btnX += (targetX - btnX) * 0.15; btnY += (targetY - btnY) * 0.15;
-            scale += (targetScale - scale) * 0.2; opacity += (targetOpacity - opacity) * 0.2; angle += (targetAngle - angle) * 0.2;
+            // Сверхбыстрый расчет позиции (коэффициент 0.3 для моментальной реакции)
+            btnX += (targetX - btnX) * 0.3; btnY += (targetY - btnY) * 0.3;
+            scale += (targetScale - scale) * 0.3; opacity += (targetOpacity - opacity) * 0.3; angle += (targetAngle - angle) * 0.3;
 
             yesBtn.style.left = btnX + 'px'; yesBtn.style.top = btnY + 'px';
             yesBtn.style.transform = `scale(${scale}) rotate(${angle}deg)`; yesBtn.style.opacity = opacity;
 
+            // Фейк-клоны
             clones.forEach(c => {
                 const cr = c.el.getBoundingClientRect();
                 const cd = Math.sqrt(Math.pow(mouseX - (c.x + cr.width/2), 2) + Math.pow(mouseY - (c.y + cr.height/2), 2));
                 if (cd < fear) {
                     const ca = Math.atan2(c.y + cr.height/2 - mouseY, c.x + cr.width/2 - mouseX);
-                    c.tx += Math.cos(ca) * 12; c.ty += Math.sin(ca) * 12;
+                    c.tx += Math.cos(ca) * 18; c.ty += Math.sin(ca) * 18;
                 }
                 if (c.tx < p) c.tx = p; if (c.tx > window.innerWidth - cr.width - p) c.tx = window.innerWidth - cr.width - p;
                 if (c.ty < p) c.ty = p; if (c.ty > window.innerHeight - cr.height - p) c.ty = window.innerHeight - r.height - p;
-                c.x += (c.tx - c.x) * 0.15; c.y += (c.ty - c.y) * 0.15;
+                c.x += (c.tx - c.x) * 0.2; c.y += (c.ty - c.y) * 0.2;
                 c.el.style.left = c.x + 'px'; c.el.style.top = c.y + 'px';
             });
 
             requestAnimationFrame(update);
         }
 
+        // Финальный клик
         yesBtn.addEventListener('click', (e) => {
-            if (Math.random() < 0.96) {
+            // Шанс попадания урезан до 0.1%, кнопка почти всегда прыгает в последний момент
+            if (Math.random() < 0.999) { 
                 e.preventDefault();
                 targetX = Math.random() * (window.innerWidth - 120); targetY = Math.random() * (window.innerHeight - 60);
                 btnX = targetX; btnY = targetY;
-                showBubble("Мимо!", btnX, btnY);
+                showBubble("Критический промах ИИ!", btnX, btnY);
                 return;
             }
-            alert("Ого, ты поймал её! Верификация пройдена 🎉");
+            alert("Поздравляем! Вы прошли игру! 🎉👾");
             window.location.reload();
         });
 
+        yesBtn.addEventListener('focus', () => yesBtn.blur());
+
         function triggerTroll(t) {
-            if (t === 'close') showBubble("Кнопка закрытия заблокирована!", btnX, btnY);
+            if (t === 'close') showBubble("Закрытие заблокировано системой!", btnX, btnY);
             if (t === 'no') showBubble("Опция 'Нет' недоступна!", btnX, btnY);
             if (t === 'start') bsod.style.display = 'block';
         }
@@ -416,4 +343,3 @@
     </script>
 </body>
 </html>
-
